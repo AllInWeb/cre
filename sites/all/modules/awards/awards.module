@@ -1,0 +1,88 @@
+<?php
+function awards_menu() {
+
+    $items = array();
+
+    $items['user/register/juri'] = array(
+        'title' => 'Личный кабинет жюри',
+        'page callback' => 'awards_juri_page_callback',
+        //'page arguments' => array('awards_form_alter'),
+        'access callback' => TRUE,
+        'menu_name' => 'main-menu',
+    );
+
+    $items['user/register/retailer'] = array(
+        'title' => 'Личный кабинет ретейлера',
+        'page callback' => 'awards_retailer_page_callback',
+        //'page arguments' => array('awards_form_alter'),
+        'access callback' => TRUE,
+        'menu_name' => 'main-menu',
+    );
+
+    return $items;
+}
+
+function awards_juri_page_callback()
+{
+    $form_login = drupal_get_form("user_login");
+    $form_register = drupal_get_form("user_register_form");
+
+    $form_register['field_name']['#access'] = false;
+    $form_register['field_fio']['#access'] = false;
+    $form_register['field_logotipe']['#access'] = false;
+    $form_register['field_short_decr']['#access'] = false;
+    $form_register['field_year_stand_network']['#access'] = false;
+    $form_register['field_audience']['#access'] = false;
+    $form_register['field_shop_points']['#access'] = false;
+    $form_register['field_shop_point_1_2014']['#access'] = false;
+    $form_register['field_shop_points_13_14']['#access'] = false;
+    $form_register['field_profit_dynamic']['#access'] = false;
+    $form_register['field_field_name_en_']['#access'] = false;
+    $form_register['field_field_short_decr_en_']['#access'] = false;
+    $form_register['field_field_audience_en_']['#access'] = false;
+    $form_register['field_field_shop_points_en_']['#access'] = false;
+
+    $form_register['role'] = array('#type' => 'hidden', '#value' => 'juri');
+
+   return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
+
+}
+
+function awards_retailer_page_callback() {
+
+    $form_login = drupal_get_form("user_login");
+    $form_register = drupal_get_form("user_register_form");
+
+    $form_register['field_photo']['#access'] = false;
+    $form_register['field_job']['#access'] = false;
+    $form_register['field_company']['#access'] = false;
+    $form_register['field_rireit']['#access'] = false;
+    $form_register['field_fio_en']['#access'] = false;
+    $form_register['field_field_job_en_']['#access'] = false;
+    $form_register['field_field_job_en_']['#access'] = false;
+    $form_register['field__company_en_']['#access'] = false;
+    $form_register['field_riteil_en_']['#access'] = false;
+
+    $form_register['role'] = array('#type' => 'hidden', '#value' => 'retailer');
+
+    return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
+}
+
+function awards_theme($existing, $type, $theme, $path) {
+    return array(
+        'retailer_page' => array(
+            'render element' => 'elements',
+            'template' => 'retailer-register-page',
+        )
+    );
+}
+
+function awards_form_alter(&$form, &$form_state, $form_id)
+{
+    if ('user_register_form' == $form_id) {
+//        krumo($form);
+//        krumo($form_state);
+    }
+
+    return $form;
+}

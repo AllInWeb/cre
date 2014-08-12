@@ -1,0 +1,4 @@
+name = Awards
+description = Awards module
+package = Awards
+core = 7.x
