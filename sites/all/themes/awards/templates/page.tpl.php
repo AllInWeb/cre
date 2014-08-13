@@ -73,84 +73,80 @@
  */
 ?>
 
-  <div id="page-wrapper"><div id="page">
+<div class="wrapper">
 
-    <div id="header"><div class="section clearfix">
+    <div class="content-wrapper<?php if ($is_front): ?> front<?php endif ?>">
 
-      <?php if ($logo): ?>
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-          <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-        </a>
-      <?php endif; ?>
+        <div class="header-top">
+            <div class="sign-in">
+                <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array(), )); ?>
+            </div>
+        </div>
 
-      <?php if ($site_name || $site_slogan): ?>
-        <div id="name-and-slogan">
-          <?php if ($site_name): ?>
-            <?php if ($title): ?>
-              <div id="site-name"><strong>
-                <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-              </strong></div>
-            <?php else: /* Use h1 when the content title is empty */ ?>
-              <h1 id="site-name">
-                <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-              </h1>
-            <?php endif; ?>
-          <?php endif; ?>
+        <div class="header-main">
+            <div class="header">
+                <div class="logo">
+                    <a href="/">CRE Retail Awards</a>
+                    <div class="clear"></div>
+                </div>
 
-          <?php if ($site_slogan): ?>
-            <div id="site-slogan"><?php print $site_slogan; ?></div>
-          <?php endif; ?>
-        </div> <!-- /#name-and-slogan -->
-      <?php endif; ?>
+                <div class="navigation">
+                    <ul>
+                        <li><a href="#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
+                        <li><a href="#second" id='scroll-link'>Жури CRE</a></li>
+                        <li><a href="#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
 
-      <?php print render($page['header']); ?>
+                <div class="ticket">
+<!--                    <a href="#"><img src="/sites/all/themes/awards/images/ticket.png" alt=""/><br>Забронировать билет</a>-->
+                    <?php print render($page['ticket']); ?>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
 
-    </div></div> <!-- /.section, /#header -->
+        <div class="content-main">
+            <div class="left-sidebar">
+                <?php print render($page['date_event']); ?>
 
-    <?php if ($main_menu || $secondary_menu): ?>
-      <div id="navigation"><div class="section">
-        <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Main menu'))); ?>
-        <?php print theme('links__system_secondary_menu', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Secondary menu'))); ?>
-      </div></div> <!-- /.section, /#navigation -->
-    <?php endif; ?>
+<!--                <div class="content-block">-->
+<!--                    <div class="award-main">-->
+<!--                        --><?php //if ($title): ?><!--<h1 class="title" id="page-title">--><?php //print $title; ?><!--</h1>--><?php //endif; ?>
+<!--                        <div class="award table">-->
+<!--                            --><?php //print render($page['content']); ?>
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-    <?php if ($breadcrumb): ?>
-      <div id="breadcrumb"><?php print $breadcrumb; ?></div>
-    <?php endif; ?>
+                <div class="content-block" id='first'>
+                    <div class="award-main">
+                        <?php if (!$is_front): ?><?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?><?php endif ?>
+                        <?php print $messages; ?>
 
-    <?php print $messages; ?>
+                        <?php print render($page['ustav_prime']); ?>
+                    </div>
+                </div>
 
-    <div id="main-wrapper"><div id="main" class="clearfix">
+                <div class="content-block" id='third'>
+                    <div class="award-main">
+                        <?php print render($page['nominees']); ?>
+                    </div>
+                </div>
 
-      <div id="content" class="column"><div class="section">
-        <?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
-        <a id="main-content"></a>
-        <?php print render($title_prefix); ?>
-        <?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
-        <?php print render($title_suffix); ?>
-        <?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-        <?php print render($page['help']); ?>
-        <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-        <?php print render($page['content']); ?>
-        <?php print $feed_icons; ?>
-      </div></div> <!-- /.section, /#content -->
+                <div class="footer">
+                    <?php print render($page['footer']); ?>
+                </div>
 
-      <?php if ($page['sidebar_first']): ?>
-        <div id="sidebar-first" class="column sidebar"><div class="section">
-          <?php print render($page['sidebar_first']); ?>
-        </div></div> <!-- /.section, /#sidebar-first -->
-      <?php endif; ?>
+            </div>
+            <div class="right-sidebar">
+                <?php print render($page['right_sidebar']); ?>
+            </div>
+        </div>
 
-      <?php if ($page['sidebar_second']): ?>
-        <div id="sidebar-second" class="column sidebar"><div class="section">
-          <?php print render($page['sidebar_second']); ?>
-        </div></div> <!-- /.section, /#sidebar-second -->
-      <?php endif; ?>
 
-    </div></div> <!-- /#main, /#main-wrapper -->
 
-    <div id="footer"><div class="section">
-      <?php print render($page['footer']); ?>
-    </div></div> <!-- /.section, /#footer -->
+    </div>
 
-  </div></div> <!-- /#page, /#page-wrapper -->
+</div>

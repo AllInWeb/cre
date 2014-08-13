@@ -5,24 +5,21 @@ package = Core
 version = 1.0
 core = 7.x
 
-stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
-stylesheets[all][] = css/colors.css
-stylesheets[print][] = css/print.css
+scripts[] = js/jquery.js
+scripts[] = js/awards.js
 
 
-
-regions[header] = Header
 regions[help] = Help
-regions[page_top] = Page top
-regions[page_bottom] = Page bottom
 regions[highlighted] = Highlighted
-region[ustav_prime] = Устав
-
-regions[featured] = Featured
+regions[date_event] = Дата события
+regions[ustav_prime] = Устав
+regions[nominees] = Номинанты
 regions[content] = Content
-regions[sidebar_first] = Sidebar first
-regions[sidebar_second] = Sidebar second
+regions[footer] = Footer
+regions[ticket] = Забронировать билет
+regions[left_sidebar] = Left sidebar
+regions[right_sidebar] = Right sidebar
 
 ; Information added by Drupal.org packaging script on 2014-08-06
 version = "7.31"
