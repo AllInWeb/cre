@@ -23,9 +23,7 @@
 </style>
 <table>
     <tr>
-        <td><?php
-            cache_clear_all();
-            print render($title); ?></td>
+        <td><?php print render($title); ?></td>
         <td>
             <hr/>
         </td>
