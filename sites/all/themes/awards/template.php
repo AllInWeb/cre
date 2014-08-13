@@ -10,3 +10,5 @@
 function awards_preprocess_user_register(&$variables) {
     $variables['form'] = drupal_build_form('user_register_form', user_register_form(array()));
 }*/
+
+
