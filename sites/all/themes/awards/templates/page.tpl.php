@@ -86,15 +86,15 @@
         <div class="header-main">
             <div class="header">
                 <div class="logo">
-                    <a href="/">CRE Retail Awards</a>
+                    <a href="<?php $front_page;?>/">CRE Retail Awards</a>
                     <div class="clear"></div>
                 </div>
 
                 <div class="navigation">
                     <ul>
-                        <li><a href="<?php if (!$is_front): ?> /<?php endif ?>#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
-                        <li><a href="<?php if (!$is_front): ?> /<?php endif ?>#second" id='scroll-link'>Жюри CRE</a></li>
-                        <li><a href="<?php if (!$is_front): ?> /<?php endif ?>#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
+                        <li><a href="<?php if (!$is_front): $front_page;?>/<?php endif ?>#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
+                        <li><a href="<?php if (!$is_front): $front_page;?> /<?php endif ?>#second" id='scroll-link'>Жюри CRE</a></li>
+                        <li><a href="<?php if (!$is_front): $front_page;?> /<?php endif ?>#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
