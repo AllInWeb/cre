@@ -148,9 +148,13 @@ body.front .content-wrapper {
 
 .right-sidebar {
     background: #fff;
-    width: 194px;
     display: table-cell;
     vertical-align: top;
+    padding: 0 22px;
+    text-align: center;
+}
+
+.views-field-field-rank {
     text-align: center;
 }
 
