@@ -61,6 +61,7 @@ function awards_retailer_page_callback()
         $form_login = drupal_get_form("user_login");
         $form_register = drupal_get_form("user_register_form");
         $form_register['user_role']['#value'] = 'retailer';
+//        krumo($form_register);
 
         return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
     }
@@ -110,9 +111,20 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 $form['account']['pass']['#access'] = false;
                 $form['account']['current_pass']['#access'] = false;
 
-                juriRules($form);
+                $form['field_photo']['und'][0]['value']['#required'] = 1;
+                $form['field_fio']['und'][0]['value']['#required'] = 1;
+                $form['field_job']['und'][0]['value']['#required'] = 1;
+                $form['field_company']['und'][0]['value']['#required'] = 1;
+                $form['field_rireit']['und'][0]['value']['#required'] = 1;
+                $form['field_fio_en']['und'][0]['value']['#required'] = 1;
+                $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
+                $form['field__company_en_']['und'][0]['value']['#required'] = 1;
+                $form['field_riteil_en_']['und'][0]['value']['#required'] = 1;
+                $form['field_company']['und'][0]['value']['#required'] = 1;
             }
         }
+//    krumo($form);
+    return $form;
 }
 
 function awards_user_presave(&$edit, $account, $category)
