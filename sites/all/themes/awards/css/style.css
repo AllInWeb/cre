@@ -69,7 +69,7 @@ tbody {
 
 
 
-.sign-in ul li.menu-467 a {
+.sign-in ul li.last a {
     background: url("/sites/all/themes/awards/images/jury.png") no-repeat;
 }
 
@@ -261,6 +261,10 @@ input.form-text, textarea {
     padding: 5px;
     border: 1px solid #858b93;
     color: #ffffff;
+}
+
+div.error{
+
 }
 
 input.form-submit {
