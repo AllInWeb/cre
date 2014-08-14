@@ -8,7 +8,6 @@
  */
 
 ?>
-    <h1>fhdshfds</h1>
 <?php if (!empty($title)): ?>
 
     <h3><?php print $title; ?></h3>
