@@ -3,13 +3,13 @@
 function awards_menu()
 {
     $items = array();
-    $items['user/register/juri'] = array(
+    $items['user/juri'] = array(
         'title' => 'Личный кабинет жюри',
         'page callback' => 'awards_juri_page_callback',
         'access callback' => TRUE,
         'menu_name' => 'main-menu',
     );
-    $items['user/register/retailer'] = array(
+    $items['user/retailer'] = array(
         'title' => 'Личный кабинет ретейлера',
         'page callback' => 'awards_retailer_page_callback',
         'access callback' => TRUE,
@@ -23,11 +23,7 @@ function awards_juri_page_callback()
 {
     global $user;
     if ($user->uid) {
-        if (isset($user->roles[4]) && $user->roles[4]) {
-
-//            module_load_include('pages.inc', 'user');
-//            $form = drupal_get_form('user_profile_form',$user,'NAMETYPE');//получаем поля формы
-//            $form = drupal_render($form);
+        if ((isset($user->roles[4]) && $user->roles[4]) || $user->uid == 1) {
 
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
@@ -35,7 +31,7 @@ function awards_juri_page_callback()
 
             return theme('retailer_page', array('form_edit' => $form_edit));
         } else {
-            drupal_goto('user/register/retailer');
+            drupal_goto('user/retailer');
         }
     } else {
         $form_login = drupal_get_form("user_login");
@@ -51,30 +47,20 @@ function awards_retailer_page_callback()
     global $user;
 
     if ($user->uid) {
-        if (isset($user->roles[5]) && $user->roles[5]) {
-      /*      $account = user_load($user->uid);
+        if ((isset($user->roles[5]) && $user->roles[5]) || $user->uid == 1) {
+            $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
-            $form_state = array();
-            $form_state['build_info']['args'] = array($account);
-          //  form_load_include($form_state, 'inc', 'user', 'user.pages');, $form_state
-            $form_register = drupal_get_form('user_profile_form');*/
-
-//            module_load_include('inc', 'user', 'user.pages');
-
-            $account = user_load($user->uid);
-            module_load_include('inc', 'user', 'user.pages');
-            $form_edit =  print render(drupal_get_form('user_profile_form', $account));
+            $form_edit =  drupal_get_form('user_profile_form', $user);
 
             return theme('retailer_page', array('form_edit' => $form_edit));
         } else {
-            drupal_goto('user/register/juri');
+            drupal_goto('user/juri');
         }
 
     } else {
         $form_login = drupal_get_form("user_login");
         $form_register = drupal_get_form("user_register_form");
         $form_register['user_role']['#value'] = 'retailer';
-//        krumo($form_register);
 
         return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
     }
@@ -93,118 +79,50 @@ function awards_theme($existing, $type, $theme, $path)
 
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-
+//    dsm($form);
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
-            if ($_GET['q'] == 'user/register/retailer') {
-                $form['field_photo']['#access'] = false;
-                $form['field_job']['#access'] = false;
-                $form['field_company']['#access'] = false;
-                $form['field_rireit']['#access'] = false;
-                $form['field_fio_en']['#access'] = false;
-                $form['field_field_job_en_']['#access'] = false;
-                $form['field__company_en_']['#access'] = false;
-                $form['field_riteil_en_']['#access'] = false;
-
-                $form['field_fio']['und'][0]['value']['#required'] = 1;
-                $form['field_name']['und'][0]['value']['#required'] = 1;
-                $form['field_logotipe']['und'][0]['value']['#required'] = 1;
-                $form['field_short_decr']['und'][0]['value']['#required'] = 1;
-                $form['field_year_stand_network']['und'][0]['value']['#required'] = 1;
-                $form['field_audience']['und'][0]['value']['#required'] = 1;
-                $form['field_shop_points']['und'][0]['value']['#required'] = 1;
-                $form['field_shop_point_1_2014']['und'][0]['value']['#required'] = 1;
-                $form['field_shop_points_13_14']['und'][0]['value']['#required'] = 1;
-                $form['field_profit_dynamic']['und'][0]['value']['#required'] = 1;
-                $form['field_field_name_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_field_short_decr_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_field_audience_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_field_shop_points_en_']['und'][0]['value']['#required'] = 1;
-
-            } else if ($_GET['q'] == 'user/register/juri') {
-                $form['field_name']['#access'] = false;
-                $form['field_logotipe']['#access'] = false;
-                $form['field_short_decr']['#access'] = false;
-                $form['field_year_stand_network']['#access'] = false;
-                $form['field_audience']['#access'] = false;
-                $form['field_shop_points']['#access'] = false;
-                $form['field_shop_point_1_2014']['#access'] = false;
-                $form['field_shop_points_13_14']['#access'] = false;
-                $form['field_profit_dynamic']['#access'] = false;
-                $form['field_field_name_en_']['#access'] = false;
-                $form['field_field_short_decr_en_']['#access'] = false;
-                $form['field_field_audience_en_']['#access'] = false;
-                $form['field_field_shop_points_en_']['#access'] = false;
-
-                $form['field_photo']['und'][0]['value']['#required'] = 1;
-                $form['field_fio']['und'][0]['value']['#required'] = 1;
-                $form['field_job']['und'][0]['value']['#required'] = 1;
-                $form['field_company']['und'][0]['value']['#required'] = 1;
-                $form['field_rireit']['und'][0]['value']['#required'] = 1;
-                $form['field_fio_en']['und'][0]['value']['#required'] = 1;
-                $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
-                $form['field__company_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_riteil_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_company']['und'][0]['value']['#required'] = 1;
+            if ($_GET['q'] == 'user/retailer') {
+               retailerRules($form);
+            } else if ($_GET['q'] == 'user/juri') {
+                juriRules($form);
             }
         }
     } else if ('user_profile_form' == $form_id) {
         global $user;
             if (isset($user->roles[5]) && $user->roles[5]) {
-                $form['field_photo']['#access'] = false;
-                $form['field_job']['#access'] = false;
-                $form['field_company']['#access'] = false;
-                $form['field_rireit']['#access'] = false;
-                $form['field_fio_en']['#access'] = false;
-                $form['field_field_job_en_']['#access'] = false;
-                $form['field__company_en_']['#access'] = false;
-                $form['field_riteil_en_']['#access'] = false;
-
-                $form['field_fio']['und'][0]['value']['#required'] = 1;
-                $form['field_name']['und'][0]['value']['#required'] = 1;
-                $form['field_logotipe']['und'][0]['value']['#required'] = 1;
-                $form['field_short_decr']['und'][0]['value']['#required'] = 1;
-                $form['field_year_stand_network']['und'][0]['value']['#required'] = 1;
-                $form['field_audience']['und'][0]['value']['#required'] = 1;
-                $form['field_shop_points']['und'][0]['value']['#required'] = 1;
-                $form['field_shop_point_1_2014']['und'][0]['value']['#required'] = 1;
-                $form['field_shop_points_13_14']['und'][0]['value']['#required'] = 1;
-                $form['field_profit_dynamic']['und'][0]['value']['#required'] = 1;
-                $form['field_field_name_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_field_short_decr_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_field_audience_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_field_shop_points_en_']['und'][0]['value']['#required'] = 1;
-
-            } else if (isset($user->roles[4]) && $user->roles[4]) {
-                $form['field_name']['#access'] = false;
+                $form['locale']['#access'] = false;
+                $form['timezone']['#access'] = false;
+                $form['picture']['#access'] = false;
                 $form['field_logotipe']['#access'] = false;
-                $form['field_short_decr']['#access'] = false;
-                $form['field_year_stand_network']['#access'] = false;
-                $form['field_audience']['#access'] = false;
-                $form['field_shop_points']['#access'] = false;
-                $form['field_shop_point_1_2014']['#access'] = false;
-                $form['field_shop_points_13_14']['#access'] = false;
-                $form['field_profit_dynamic']['#access'] = false;
-                $form['field_field_name_en_']['#access'] = false;
-                $form['field_field_short_decr_en_']['#access'] = false;
-                $form['field_field_audience_en_']['#access'] = false;
-                $form['field_field_shop_points_en_']['#access'] = false;
+                $form['account']['mail']['#access'] = false;
+                $form['account']['pass']['#access'] = false;
+                $form['account']['current_pass']['#access'] = false;
 
-                $form['field_photo']['und'][0]['value']['#required'] = 1;
-                $form['field_fio']['und'][0]['value']['#required'] = 1;
-                $form['field_job']['und'][0]['value']['#required'] = 1;
-                $form['field_company']['und'][0]['value']['#required'] = 1;
-                $form['field_rireit']['und'][0]['value']['#required'] = 1;
-                $form['field_fio_en']['und'][0]['value']['#required'] = 1;
-                $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
-                $form['field__company_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_riteil_en_']['und'][0]['value']['#required'] = 1;
-                $form['field_company']['und'][0]['value']['#required'] = 1;
+                retailerRules($form);
+            } else if (isset($user->roles[4]) && $user->roles[4]) {
+                $form['locale']['#access'] = false;
+                $form['timezone']['#access'] = false;
+                $form['picture']['#access'] = false;
+                $form['field_photo']['#access'] = false;
+                $form['account']['mail']['#access'] = false;
+                $form['account']['pass']['#access'] = false;
+                $form['account']['current_pass']['#access'] = false;
+
+                juriRules($form);
+            } else if (isset($user->uid) && $user->uid == 1) {
+/*                $form['locale']['#access'] = false;
+                $form['timezone']['#access'] = false;
+                $form['picture']['#access'] = false;
+                $form['field_photo']['#access'] = false;
+                $form['account']['mail']['#access'] = false;
+                $form['account']['pass']['#access'] = false;
+                $form['account']['current_pass']['#access'] = false;
+                juriRules($form);
+                retailerRules($form);*/
             }
-        }
-//    krumo($form);
-    return $form;
+    }
 }
 
 function awards_user_presave(&$edit, $account, $category)
@@ -216,13 +134,9 @@ function awards_user_presave(&$edit, $account, $category)
             $edit['roles'][5] = true;
         }
     }
-    /*    dsm($edit);
-        dsm($account);*/
 }
 
-/*
-
-function juriRules($form)
+function juriRules(&$form)
 {
 
     $form['field_name']['#access'] = false;
@@ -238,7 +152,6 @@ function juriRules($form)
     $form['field_field_short_decr_en_']['#access'] = false;
     $form['field_field_audience_en_']['#access'] = false;
     $form['field_field_shop_points_en_']['#access'] = false;
-
     $form['field_photo']['und'][0]['value']['#required'] = 1;
     $form['field_fio']['und'][0]['value']['#required'] = 1;
     $form['field_job']['und'][0]['value']['#required'] = 1;
@@ -253,9 +166,8 @@ function juriRules($form)
     return $form;
 }
 
-function retailerRules($form)
+function retailerRules(&$form)
 {
-
     $form['field_photo']['#access'] = false;
     $form['field_job']['#access'] = false;
     $form['field_company']['#access'] = false;
@@ -264,7 +176,6 @@ function retailerRules($form)
     $form['field_field_job_en_']['#access'] = false;
     $form['field__company_en_']['#access'] = false;
     $form['field_riteil_en_']['#access'] = false;
-
     $form['field_fio']['und'][0]['value']['#required'] = 1;
     $form['field_name']['und'][0]['value']['#required'] = 1;
     $form['field_logotipe']['und'][0]['value']['#required'] = 1;
@@ -281,4 +192,4 @@ function retailerRules($form)
     $form['field_field_shop_points_en_']['und'][0]['value']['#required'] = 1;
 
     return $form;
-}*/
+}
