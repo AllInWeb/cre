@@ -23,7 +23,7 @@ function awards_juri_page_callback()
 {
     global $user;
     if ($user->uid) {
-        if ((isset($user->roles[4]) && $user->roles[4]) || $user->uid == 1) {
+        if (isset($user->roles[4]) && $user->roles[4]) {
 
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
@@ -61,6 +61,7 @@ function awards_retailer_page_callback()
         $form_login = drupal_get_form("user_login");
         $form_register = drupal_get_form("user_register_form");
         $form_register['user_role']['#value'] = 'retailer';
+//        krumo($form_register);
 
         return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
     }
