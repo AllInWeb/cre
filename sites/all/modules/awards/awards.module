@@ -1,33 +1,40 @@
 <?php
 
+/**
+ * Меню личных кабинетов
+ * @return array
+ */
 function awards_menu()
 {
     $items = array();
     $items['user/juri'] = array(
-        'title' => 'Личный кабинет жюри',
-        'page callback' => 'awards_juri_page_callback',
+        'title'           => 'Личный кабинет жюри',
+        'page callback'   => 'awards_juri_page_callback',
         'access callback' => TRUE,
-        'menu_name' => 'main-menu',
+        'menu_name'       => 'main-menu',
     );
     $items['user/retailer'] = array(
-        'title' => 'Личный кабинет ретейлера',
-        'page callback' => 'awards_retailer_page_callback',
+        'title'           => 'Личный кабинет ретейлера',
+        'page callback'   => 'awards_retailer_page_callback',
         'access callback' => TRUE,
-        'menu_name' => 'main-menu',
+        'menu_name'       => 'main-menu',
     );
 
     return $items;
 }
 
+/**
+ * Страница котурую увидит пользователя перейдя по ссылке 'Личный кабинет жюри'
+ * @return string
+ */
 function awards_juri_page_callback()
 {
     global $user;
     if ($user->uid) {
         if ((isset($user->roles[4]) && $user->roles[4]) || $user->uid == 1) {
-
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
-            $form_edit =  drupal_get_form('user_profile_form', $user);
+            $form_edit = drupal_get_form('user_profile_form', $user);
 
             return theme('retailer_page', array('form_edit' => $form_edit));
         } else {
@@ -42,32 +49,40 @@ function awards_juri_page_callback()
     }
 }
 
+/**
+ * Страница котурую увидит пользователя перейдя по ссылке 'Личный кабинет ретейлера'
+ * @return string
+ */
 function awards_retailer_page_callback()
 {
     global $user;
-
     if ($user->uid) {
         if ((isset($user->roles[5]) && $user->roles[5]) || $user->uid == 1) {
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
-            $form_edit =  drupal_get_form('user_profile_form', $user);
+            $form_edit = drupal_get_form('user_profile_form', $user);
 
             return theme('retailer_page', array('form_edit' => $form_edit));
         } else {
             drupal_goto('user/juri');
         }
-
     } else {
         $form_login = drupal_get_form("user_login");
         $form_register = drupal_get_form("user_register_form");
         $form_register['user_role']['#value'] = 'retailer';
-//        krumo($form_register);
 
         return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
     }
 }
 
-
+/**
+ * Переопределение темы форм регистрации
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ * @return array
+ */
 function awards_theme($existing, $type, $theme, $path)
 {
     return array(
@@ -78,54 +93,58 @@ function awards_theme($existing, $type, $theme, $path)
     );
 }
 
+/**
+ * Вывод форм и показ полей в зависимости от типа пользователя
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-//    dsm($form);
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
-               retailerRules($form);
+                retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
                 juriRules($form);
             }
         }
     } else if ('user_profile_form' == $form_id) {
         global $user;
-            if (isset($user->roles[5]) && $user->roles[5]) {
-                $form['locale']['#access'] = false;
-                $form['timezone']['#access'] = false;
-                $form['picture']['#access'] = false;
-                $form['field_logotipe']['#access'] = false;
-                $form['account']['mail']['#access'] = false;
-                $form['account']['pass']['#access'] = false;
-                $form['account']['current_pass']['#access'] = false;
+        if (isset($user->roles[5]) && $user->roles[5]) {
+            $form['locale']['#access'] = false;
+            $form['timezone']['#access'] = false;
+            $form['picture']['#access'] = false;
+            $form['field_logotipe']['#access'] = false;
+            $form['account']['mail']['#access'] = false;
+            $form['account']['pass']['#access'] = false;
+            $form['account']['current_pass']['#access'] = false;
 
-                retailerRules($form);
-            } else if (isset($user->roles[4]) && $user->roles[4]) {
-                $form['locale']['#access'] = false;
-                $form['timezone']['#access'] = false;
-                $form['picture']['#access'] = false;
-                $form['field_photo']['#access'] = false;
-                $form['account']['mail']['#access'] = false;
-                $form['account']['pass']['#access'] = false;
-                $form['account']['current_pass']['#access'] = false;
+            retailerRules($form);
+        } else if (isset($user->roles[4]) && $user->roles[4]) {
+            $form['locale']['#access'] = false;
+            $form['timezone']['#access'] = false;
+            $form['picture']['#access'] = false;
+            $form['field_photo']['#access'] = false;
+            $form['account']['mail']['#access'] = false;
+            $form['account']['pass']['#access'] = false;
+            $form['account']['current_pass']['#access'] = false;
 
-                juriRules($form);
-            } else if (isset($user->uid) && $user->uid == 1) {
-/*                $form['locale']['#access'] = false;
-                $form['timezone']['#access'] = false;
-                $form['picture']['#access'] = false;
-                $form['field_photo']['#access'] = false;
-                $form['account']['mail']['#access'] = false;
-                $form['account']['pass']['#access'] = false;
-                $form['account']['current_pass']['#access'] = false;
-                juriRules($form);
-                retailerRules($form);*/
-            }
+            juriRules($form);
+        } else if (isset($user->uid) && $user->uid == 1) {
+            juriRules($form);
+            retailerRules($form);
+        }
     }
 }
 
+/**
+ * Назначение роли пользователя при регистрации
+ * @param $edit
+ * @param $account
+ * @param $category
+ */
 function awards_user_presave(&$edit, $account, $category)
 {
     if (isset($edit['user_role']) && $account->is_new) {
@@ -137,9 +156,13 @@ function awards_user_presave(&$edit, $account, $category)
     }
 }
 
+/**
+ * Правила для полей форм для роли 'Жюри'
+ * @param $form
+ * @return mixed
+ */
 function juriRules(&$form)
 {
-
     $form['field_name']['#access'] = false;
     $form['field_logotipe']['#access'] = false;
     $form['field_short_decr']['#access'] = false;
@@ -167,6 +190,11 @@ function juriRules(&$form)
     return $form;
 }
 
+/**
+ * Правила для полей форм для роли 'Ретейлер'
+ * @param $form
+ * @return mixed
+ */
 function retailerRules(&$form)
 {
     $form['field_photo']['#access'] = false;

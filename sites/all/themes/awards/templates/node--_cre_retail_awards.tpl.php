@@ -1,3 +1,8 @@
+<?php
+/**
+ * Отображение голосования на главной странице
+ */
+?>
 <div class="title-votes">
     <?php print render($title); ?>
 </div>

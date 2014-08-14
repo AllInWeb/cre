@@ -1,3 +1,6 @@
+/**
+ * Для плавного перехода по ссылкам
+ */
 $('document').ready(function () {
     $(".navigation ul li a").click(function () {
         var selected = $(this).attr('href');
