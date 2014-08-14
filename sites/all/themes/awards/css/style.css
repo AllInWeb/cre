@@ -291,13 +291,15 @@ h1.title {
 
 .authorization {
     float: left;
-    padding-right: 50px;
+    /*padding-right: 5px;*/
+    width: 45%;
 }
 
 .role-form {
     padding-left: 50px;
     border-left: 1px solid #72777e;
-    float: left;
+    float: right;
+    width: 45%;
 }
 
 .view--cre-retail-awards .views-row {
@@ -331,4 +333,98 @@ h1.title {
     background: #555d68;
     margin-top: 10px;
     height: 14px;
+}
+
+#block-views-gallery-block > div.content > div > div > div > div > div > ul > li {
+    width: 200px !important;
+    height: 410px;
+    background: #555d68;
+}
+
+.region-carusel .view-gallery {
+    height: 410px;
+}
+
+.jcarousel-skin-default {
+    text-align: left;
+}
+
+.jcarousel-skin-default .jcarousel-item-horizontal {
+    margin: 0 20px;
+}
+
+.jcarousel-skin-default .jcarousel-container-horizontal {
+    width: 720px;
+}
+
+.jcarousel-skin-default .jcarousel-clip-horizontal {
+    width: 720px;
+}
+
+a.cboxElement {outline:0;}
+
+.views-field-field-fio, .views-field-field-job, .views-field-field-company {
+    padding-left: 10px;
+}
+
+.views-field-field-fio {
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 16px;
+}
+
+.views-field-field-job {
+    color: #ffffff;
+}
+
+.views-field-field-company {
+    text-transform: uppercase;
+    color: #b8c7e0;
+}
+
+.jcarousel-skin-default .jcarousel-item {
+    border: none;
+}
+
+.jcarousel-skin-default .jcarousel-next,
+.jcarousel-skin-default .jcarousel-prev {
+    width: 43px;
+    height: 146px;
+}
+
+.jcarousel-skin-default .jcarousel-next {
+    background: url("../images/arrow-next.png") no-repeat;
+}
+
+.jcarousel-skin-default .jcarousel-prev {
+    background: url("../images/arrow-white.png") no-repeat;
+}
+
+.jcarousel-skin-default .jcarousel-prev-horizontal:hover,
+.jcarousel-skin-default .jcarousel-next-horizontal:hover{
+    background-position: 0;
+}
+
+.jcarousel-skin-default .jcarousel-prev-horizontal {
+    top: 120px;
+    left: -60px;
+}
+
+.jcarousel-skin-default .jcarousel-next-horizontal {
+    top: 120px;
+    right: -60px;
+}
+
+fieldset {
+    border: none;
+}
+
+fieldset .fieldset-legend,
+fieldset .fieldset-description {
+    display: none;
+}
+
+.sign-in a.active {
+    color: #9b4a2f;
+    background: url("../images/jury.png") no-repeat;
 }

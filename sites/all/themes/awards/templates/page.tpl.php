@@ -111,21 +111,18 @@
             <div class="left-sidebar">
                 <?php print render($page['date_event']); ?>
 
-<!--                <div class="content-block">-->
-<!--                    <div class="award-main">-->
-<!--                        --><?php //if ($title): ?><!--<h1 class="title" id="page-title">--><?php //print $title; ?><!--</h1>--><?php //endif; ?>
-<!--                        <div class="award table">-->
-<!--                            --><?php //print render($page['content']); ?>
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
                 <div class="content-block" id='first'>
                     <div class="award-main">
                         <?php if (!$is_front): ?><?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?><?php endif ?>
                         <?php print $messages; ?>
 
                         <?php print render($page['ustav_prime']); ?>
+                    </div>
+                </div>
+
+                <div class="content-block" id='third'>
+                    <div class="award-main">
+                        <?php print render($page['carusel']); ?>
                     </div>
                 </div>
 
