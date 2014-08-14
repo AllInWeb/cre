@@ -47,7 +47,7 @@ function awards_retailer_page_callback()
     global $user;
 
     if ($user->uid) {
-        if (isset($user->roles[5]) && $user->roles[5]) {
+        if ((isset($user->roles[5]) && $user->roles[5]) || $user->uid == 1) {
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
             $form_edit =  drupal_get_form('user_profile_form', $user);
@@ -61,6 +61,7 @@ function awards_retailer_page_callback()
         $form_login = drupal_get_form("user_login");
         $form_register = drupal_get_form("user_register_form");
         $form_register['user_role']['#value'] = 'retailer';
+//        krumo($form_register);
 
         return theme('retailer_page', array('form_register' => $form_register, 'form_login' => $form_login));
     }
@@ -79,7 +80,7 @@ function awards_theme($existing, $type, $theme, $path)
 
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-
+//    dsm($form);
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
@@ -92,8 +93,24 @@ function awards_form_alter(&$form, &$form_state, $form_id)
     } else if ('user_profile_form' == $form_id) {
         global $user;
             if (isset($user->roles[5]) && $user->roles[5]) {
+                $form['locale']['#access'] = false;
+                $form['timezone']['#access'] = false;
+                $form['picture']['#access'] = false;
+                $form['field_logotipe']['#access'] = false;
+                $form['account']['mail']['#access'] = false;
+                $form['account']['pass']['#access'] = false;
+                $form['account']['current_pass']['#access'] = false;
+
                 retailerRules($form);
             } else if (isset($user->roles[4]) && $user->roles[4]) {
+                $form['locale']['#access'] = false;
+                $form['timezone']['#access'] = false;
+                $form['picture']['#access'] = false;
+                $form['field_photo']['#access'] = false;
+                $form['account']['mail']['#access'] = false;
+                $form['account']['pass']['#access'] = false;
+                $form['account']['current_pass']['#access'] = false;
+
                 juriRules($form);
             }
         }
@@ -112,6 +129,7 @@ function awards_user_presave(&$edit, $account, $category)
 
 function juriRules(&$form)
 {
+
     $form['field_name']['#access'] = false;
     $form['field_logotipe']['#access'] = false;
     $form['field_short_decr']['#access'] = false;

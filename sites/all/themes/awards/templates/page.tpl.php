@@ -92,9 +92,9 @@
 
                 <div class="navigation">
                     <ul>
-                        <li><a href="#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
-                        <li><a href="#second" id='scroll-link'>Жури CRE</a></li>
-                        <li><a href="#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
+                        <li><a href="<?php if (!$is_front): ?> /<?php endif ?>#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
+                        <li><a href="<?php if (!$is_front): ?> /<?php endif ?>#second" id='scroll-link'>Жури CRE</a></li>
+                        <li><a href="<?php if (!$is_front): ?> /<?php endif ?>#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
