@@ -265,6 +265,7 @@ input.form-text, textarea {
     padding: 5px;
     border: 1px solid #858b93;
     color: #ffffff;
+    max-width: 97%;
 }
 
 input.form-submit, .voting-link{
@@ -437,4 +438,8 @@ fieldset .fieldset-description {
     display: block;
     text-decoration: none;
     float: left;
+}
+
+.view-static-partners-view {
+    color: #000;
 }
