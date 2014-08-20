@@ -125,9 +125,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['timezone']['#access']                = false;
             $form['picture']['#access']                 = false;
             $form['field_logotipe']['#access']          = false;
-            $form['account']['mail']['#access']         = false;
-            $form['account']['pass']['#access']         = false;
-            $form['account']['current_pass']['#access'] = false;
 
             retailerRules($form);
         } else if (isset($user->roles[4]) && $user->roles[4]) {
@@ -135,9 +132,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['timezone']['#access']                = false;
             $form['picture']['#access']                 = false;
             $form['field_photo']['#access']             = false;
-            $form['account']['mail']['#access']         = false;
-            $form['account']['pass']['#access']         = false;
-            $form['account']['current_pass']['#access'] = false;
 
             juriRules($form);
 
@@ -217,14 +211,15 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
-    $form['field_photo']['#access']         = false;
-    $form['field_job']['#access']           = false;
-    $form['field_company']['#access']       = false;
-    $form['field_rireit']['#access']        = false;
-    $form['field_fio_en']['#access']        = false;
-    $form['field_field_job_en_']['#access'] = false;
-    $form['field__company_en_']['#access']  = false;
-    $form['field_riteil_en_']['#access']    = false;
+    $form['field_field_audience_en_']['#access']    = true;
+    $form['field_photo']['#access']                 = false;
+    $form['field_job']['#access']                   = false;
+    $form['field_company']['#access']               = false;
+    $form['field_rireit']['#access']                = false;
+    $form['field_fio_en']['#access']                = false;
+    $form['field_field_job_en_']['#access']         = false;
+    $form['field__company_en_']['#access']          = false;
+    $form['field_riteil_en_']['#access']            = false;
 
     $form['field_fio']['und'][0]['value']['#required']                   = 1;
     $form['field_name']['und'][0]['value']['#required']                  = 1;
