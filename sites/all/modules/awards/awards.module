@@ -117,6 +117,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             } else if ($_GET['q'] == 'user/juri') {
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
+                $form['account']['name']['#default_value'] = 'user' . mt_rand(1,10000);
                 adminUserJuriRegistration($form);
                 adminUserRetailerRegistration($form);
             }
@@ -137,7 +138,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['field_photo']['#access'] = false;
 
             juriRules($form);
-
         } else if (isset($user->uid) && $user->uid == 1) {
             $form['picture']['#access'] = false;
             $form['locale']['#access'] = false;
@@ -293,16 +293,6 @@ function adminUserJuriRegistration(&$form)
             'input[name="roles[4]"]' => array('checked' => TRUE)
         )
     );
-    $form['field_photo']['und'][0]['value']['#required'] = 1;
-    $form['field_fio']['und'][0]['value']['#required'] = 1;
-    $form['field_job']['und'][0]['value']['#required'] = 1;
-    $form['field_company']['und'][0]['value']['#required'] = 1;
-    $form['field_rireit']['und'][0]['value']['#required'] = 1;
-    $form['field_fio_en']['und'][0]['value']['#required'] = 1;
-    $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
-    $form['field__company_en_']['und'][0]['value']['#required'] = 1;
-    $form['field_riteil_en_']['und'][0]['value']['#required'] = 1;
-    $form['field_company']['und'][0]['value']['#required'] = 1;
 }
 
 /**
@@ -376,18 +366,4 @@ function adminUserRetailerRegistration(&$form)
             'input[name="roles[5]"]' => array('checked' => TRUE)
         )
     );
-    $form['field_fio']['und'][0]['value']['#required'] = 1;
-    $form['field_name']['und'][0]['value']['#required'] = 1;
-    $form['field_logotipe']['und'][0]['value']['#required'] = 1;
-    $form['field_short_decr']['und'][0]['value']['#required'] = 1;
-    $form['field_year_stand_network']['und'][0]['value']['#required'] = 1;
-    $form['field_audience']['und'][0]['value']['#required'] = 1;
-    $form['field_shop_points']['und'][0]['value']['#required'] = 1;
-    $form['field_shop_point_1_2014']['und'][0]['value']['#required'] = 1;
-    $form['field_shop_points_13_14']['und'][0]['value']['#required'] = 1;
-    $form['field_profit_dynamic']['und'][0]['value']['#required'] = 1;
-    $form['field_field_name_en_']['und'][0]['value']['#required'] = 1;
-    $form['field_field_short_decr_en_']['und'][0]['value']['#required'] = 1;
-    $form['field_field_audience_en_']['und'][0]['value']['#required'] = 1;
-    $form['field_field_shop_points_en_']['und'][0]['value']['#required'] = 1;
 }
