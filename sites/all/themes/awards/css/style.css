@@ -88,7 +88,7 @@ tbody {
 .navigation ul {
     float: left;
     list-style: none;
-    margin-left: 98px;
+    margin-left: 45px;
     margin-top: 28px;
 }
 
@@ -128,8 +128,8 @@ tbody {
 
 body.front .content-wrapper {
     overflow: hidden;
-    background: url("../images/bg.jpg") no-repeat;
-    background-position: 0 41px;
+    background: url("../images/background.png") no-repeat;
+    background-position: 0 131px;
 }
 
 .header-main {
@@ -212,24 +212,13 @@ body.front .content-wrapper {
 }
 
 
-.award.table .btn {
-    width: 150px;
-    height: 100px;
-    min-height: 100%;
-    background-color: #555d68;
-}
-
-.award.table .btn > div {
-    height: 100%;
-}
 
 .award.table .btn a {
-    min-height: 100%;
-    color: white;
-    text-decoration: none;
+    background: url("../images/word.png") no-repeat;
     display: block;
-    vertical-align: bottom;
-    text-align: center;
+    width: 150px;
+    height: 174px;
+    color: transparent;
 }
 
 .footer {
@@ -442,4 +431,8 @@ fieldset .fieldset-description {
 
 .view-static-partners-view {
     color: #000;
+}
+
+.password-suggestions ul {
+    list-style: none;
 }
