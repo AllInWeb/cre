@@ -86,7 +86,7 @@
         <div class="header-main">
             <div class="header">
                 <div class="logo">
-                    <a href="<?php $front_page;?>/">CRE Retail Awards</a>
+                    <a href="<?php $front_page;?>/"><img src="<?php print $logo ?>" alt=""/></a>
                     <div class="clear"></div>
                 </div>
 
