@@ -110,6 +110,7 @@ function awards_theme($existing, $type, $theme, $path)
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
     if ('user_register_form' == $form_id) {
+        krumo($form);
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
@@ -187,6 +188,7 @@ function awards_user_presave(&$edit, $account, $category)
  */
 function juriRules(&$form)
 {
+    $form['simplenews']['newsletters']['#default_value'][1] = false;
     $form['field_name']['#access'] = false;
     $form['field_logotipe']['#access'] = false;
     $form['field_short_decr']['#access'] = false;
@@ -221,6 +223,7 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
+    $form['simplenews']['newsletters']['#default_value'][0] = false;
     $form['field_field_audience_en_']['#access'] = true;
     $form['field_photo']['#access'] = false;
     $form['field_job']['#access'] = false;
