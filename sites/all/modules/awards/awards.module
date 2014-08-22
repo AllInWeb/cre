@@ -309,6 +309,7 @@ function adminUserJuriRegistration(&$form)
  */
 function adminUserRetailerRegistration(&$form)
 {
+    $form['field_field_audience_en_']['#access'] = true;
     $form['field_name']['#states'] = array(
         'visible' => array(
             'input[name="roles[5]"]' => array('checked' => TRUE)
