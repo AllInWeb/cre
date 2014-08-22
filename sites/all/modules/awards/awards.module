@@ -8,16 +8,16 @@ function awards_menu()
 {
     $items = array();
     $items['user/juri'] = array(
-        'title'           => 'Личный кабинет жюри',
-        'page callback'   => 'awards_juri_page_callback',
+        'title' => 'Личный кабинет жюри',
+        'page callback' => 'awards_juri_page_callback',
         'access callback' => TRUE,
-        'menu_name'       => 'main-menu',
+        'menu_name' => 'main-menu',
     );
     $items['user/retailer'] = array(
-        'title'           => 'Личный кабинет ретейлера',
-        'page callback'   => 'awards_retailer_page_callback',
+        'title' => 'Личный кабинет ретейлера',
+        'page callback' => 'awards_retailer_page_callback',
         'access callback' => TRUE,
-        'menu_name'       => 'main-menu',
+        'menu_name' => 'main-menu',
     );
 
     return $items;
@@ -46,8 +46,8 @@ function awards_juri_page_callback()
         $form_register['user_role']['#value'] = 'juri';
 
         return theme('retailer_page', array(
-            'form_register' => $form_register,
-            'form_login'    => $form_login
+                'form_register' => $form_register,
+                'form_login' => $form_login
             )
         );
     }
@@ -76,8 +76,8 @@ function awards_retailer_page_callback()
         $form_register['user_role']['#value'] = 'retailer';
 
         return theme('retailer_page', array(
-            'form_register' => $form_register,
-            'form_login'    => $form_login,
+                'form_register' => $form_register,
+                'form_login' => $form_login,
             )
         );
     }
@@ -96,7 +96,7 @@ function awards_theme($existing, $type, $theme, $path)
     return array(
         'retailer_page' => array(
             'render element' => 'elements',
-            'template'       => 'retailer-register-page',
+            'template' => 'retailer-register-page',
         )
     );
 }
@@ -116,35 +116,40 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
                 juriRules($form);
+            } else if ($_GET['q'] == 'admin/people/create') {
+                $form['account']['name']['#default_value'] = 'user' . mt_rand(1,10000);
+                adminUserJuriRegistration($form);
+                adminUserRetailerRegistration($form);
             }
         }
     } else if ('user_profile_form' == $form_id) {
         global $user;
         if (isset($user->roles[5]) && $user->roles[5]) {
-            $form['locale']['#access']                  = false;
-            $form['timezone']['#access']                = false;
-            $form['picture']['#access']                 = false;
-            $form['field_logotipe']['#access']          = false;
+            $form['locale']['#access'] = false;
+            $form['timezone']['#access'] = false;
+            $form['picture']['#access'] = false;
+            $form['field_logotipe']['#access'] = false;
 
             retailerRules($form);
         } else if (isset($user->roles[4]) && $user->roles[4]) {
-            $form['locale']['#access']                  = false;
-            $form['timezone']['#access']                = false;
-            $form['picture']['#access']                 = false;
-            $form['field_photo']['#access']             = false;
+            $form['locale']['#access'] = false;
+            $form['timezone']['#access'] = false;
+            $form['picture']['#access'] = false;
+            $form['field_photo']['#access'] = false;
 
             juriRules($form);
-
         } else if (isset($user->uid) && $user->uid == 1) {
-            $form['picture']['#access']                 = false;
+            $form['picture']['#access'] = false;
+            $form['locale']['#access'] = false;
+            $form['timezone']['#access'] = false;
             if ($form['account']['roles']["#default_value"][1] == 4) {
                 juriRules($form);
             } else if ($form['account']['roles']["#default_value"][1] == 5) {
                 retailerRules($form);
             } else if (user_access('administer')) {
                 $form['field_fio']['und'][0]['value']['#required'] = 0;
-                $form['field_fio']['#access']                      = false;
-                $form['account']['status']['#access']              = false;
+                $form['field_fio']['#access'] = false;
+                $form['account']['status']['#access'] = false;
                 retailerRules($form);
                 juriRules($form);
             }
@@ -176,30 +181,29 @@ function awards_user_presave(&$edit, $account, $category)
  */
 function juriRules(&$form)
 {
-    $form['field_name']['#access']                  = false;
-    $form['field_logotipe']['#access']              = false;
-    $form['field_short_decr']['#access']            = false;
-    $form['field_year_stand_network']['#access']    = false;
-    $form['field_audience']['#access']              = false;
-    $form['field_shop_points']['#access']           = false;
-    $form['field_shop_point_1_2014']['#access']     = false;
-    $form['field_shop_points_13_14']['#access']     = false;
-    $form['field_profit_dynamic']['#access']        = false;
-    $form['field_field_name_en_']['#access']        = false;
-    $form['field_field_short_decr_en_']['#access']  = false;
-    $form['field_field_audience_en_']['#access']    = false;
+    $form['field_name']['#access'] = false;
+    $form['field_logotipe']['#access'] = false;
+    $form['field_short_decr']['#access'] = false;
+    $form['field_year_stand_network']['#access'] = false;
+    $form['field_audience']['#access'] = false;
+    $form['field_shop_points']['#access'] = false;
+    $form['field_shop_point_1_2014']['#access'] = false;
+    $form['field_shop_points_13_14']['#access'] = false;
+    $form['field_profit_dynamic']['#access'] = false;
+    $form['field_field_name_en_']['#access'] = false;
+    $form['field_field_short_decr_en_']['#access'] = false;
+    $form['field_field_audience_en_']['#access'] = false;
     $form['field_field_shop_points_en_']['#access'] = false;
-
-    $form['field_photo']['und'][0]['value']['#required']         = 1;
-    $form['field_fio']['und'][0]['value']['#required']           = 1;
-    $form['field_job']['und'][0]['value']['#required']           = 1;
-    $form['field_company']['und'][0]['value']['#required']       = 1;
-    $form['field_rireit']['und'][0]['value']['#required']        = 1;
-    $form['field_fio_en']['und'][0]['value']['#required']        = 1;
+    $form['field_photo']['und'][0]['value']['#required'] = 1;
+    $form['field_fio']['und'][0]['value']['#required'] = 1;
+    $form['field_job']['und'][0]['value']['#required'] = 1;
+    $form['field_company']['und'][0]['value']['#required'] = 1;
+    $form['field_rireit']['und'][0]['value']['#required'] = 1;
+    $form['field_fio_en']['und'][0]['value']['#required'] = 1;
     $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
-    $form['field__company_en_']['und'][0]['value']['#required']  = 1;
-    $form['field_riteil_en_']['und'][0]['value']['#required']    = 1;
-    $form['field_company']['und'][0]['value']['#required']       = 1;
+    $form['field__company_en_']['und'][0]['value']['#required'] = 1;
+    $form['field_riteil_en_']['und'][0]['value']['#required'] = 1;
+    $form['field_company']['und'][0]['value']['#required'] = 1;
 
     return $form;
 }
@@ -211,30 +215,155 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
-    $form['field_field_audience_en_']['#access']    = true;
-    $form['field_photo']['#access']                 = false;
-    $form['field_job']['#access']                   = false;
-    $form['field_company']['#access']               = false;
-    $form['field_rireit']['#access']                = false;
-    $form['field_fio_en']['#access']                = false;
-    $form['field_field_job_en_']['#access']         = false;
-    $form['field__company_en_']['#access']          = false;
-    $form['field_riteil_en_']['#access']            = false;
-
-    $form['field_fio']['und'][0]['value']['#required']                   = 1;
-    $form['field_name']['und'][0]['value']['#required']                  = 1;
-    $form['field_logotipe']['und'][0]['value']['#required']              = 1;
-    $form['field_short_decr']['und'][0]['value']['#required']            = 1;
-    $form['field_year_stand_network']['und'][0]['value']['#required']    = 1;
-    $form['field_audience']['und'][0]['value']['#required']              = 1;
-    $form['field_shop_points']['und'][0]['value']['#required']           = 1;
-    $form['field_shop_point_1_2014']['und'][0]['value']['#required']     = 1;
-    $form['field_shop_points_13_14']['und'][0]['value']['#required']     = 1;
-    $form['field_profit_dynamic']['und'][0]['value']['#required']        = 1;
-    $form['field_field_name_en_']['und'][0]['value']['#required']        = 1;
-    $form['field_field_short_decr_en_']['und'][0]['value']['#required']  = 1;
-    $form['field_field_audience_en_']['und'][0]['value']['#required']    = 1;
+    $form['field_field_audience_en_']['#access'] = true;
+    $form['field_photo']['#access'] = false;
+    $form['field_job']['#access'] = false;
+    $form['field_company']['#access'] = false;
+    $form['field_rireit']['#access'] = false;
+    $form['field_fio_en']['#access'] = false;
+    $form['field_field_job_en_']['#access'] = false;
+    $form['field__company_en_']['#access'] = false;
+    $form['field_riteil_en_']['#access'] = false;
+    $form['field_fio']['und'][0]['value']['#required'] = 1;
+    $form['field_name']['und'][0]['value']['#required'] = 1;
+    $form['field_logotipe']['und'][0]['value']['#required'] = 1;
+    $form['field_short_decr']['und'][0]['value']['#required'] = 1;
+    $form['field_year_stand_network']['und'][0]['value']['#required'] = 1;
+    $form['field_audience']['und'][0]['value']['#required'] = 1;
+    $form['field_shop_points']['und'][0]['value']['#required'] = 1;
+    $form['field_shop_point_1_2014']['und'][0]['value']['#required'] = 1;
+    $form['field_shop_points_13_14']['und'][0]['value']['#required'] = 1;
+    $form['field_profit_dynamic']['und'][0]['value']['#required'] = 1;
+    $form['field_field_name_en_']['und'][0]['value']['#required'] = 1;
+    $form['field_field_short_decr_en_']['und'][0]['value']['#required'] = 1;
+    $form['field_field_audience_en_']['und'][0]['value']['#required'] = 1;
     $form['field_field_shop_points_en_']['und'][0]['value']['#required'] = 1;
 
     return $form;
+}
+
+/**
+ * Отображение полей при создании пользователя с ролью жюри от имени администратора
+ * @param $form
+ */
+function adminUserJuriRegistration(&$form)
+{
+    $form['field_photo']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_job']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_company']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_rireit']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_fio_en']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_field_job_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field__company_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_riteil_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_company']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[4]"]' => array('checked' => TRUE)
+        )
+    );
+}
+
+/**
+ * Отображение полей при создании пользователя с ролью ретейлера от имени администратора
+ * @param $form
+ */
+function adminUserRetailerRegistration(&$form)
+{
+    $form['field_name']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_logotipe']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_short_decr']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_year_stand_network']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_audience']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_shop_points']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_shop_point_1_2014']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_shop_points_13_14']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_profit_dynamic']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_field_name_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_field_short_decr_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_field_audience_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
+    $form['field_field_shop_points_en_']['#states'] = array(
+        'visible' => array(
+            'input[name="roles[5]"]' => array('checked' => TRUE)
+        )
+    );
 }
