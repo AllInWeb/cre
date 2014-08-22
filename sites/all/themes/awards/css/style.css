@@ -19,16 +19,19 @@ tbody {
     border: none;
 }
 
+body.front .wrapper {
+    background: url("../images/background.png") no-repeat;
+    background-position: 50% 131px;
+}
+
 .header-top {
     height: 40px;
 }
 
 .header-top, .header {
-    margin-right: 100px;
-}
-
-.header {
-    float: right;
+    margin: 0 auto;
+    width: 1200px;
+    overflow: hidden;
 }
 
 .header > div {
@@ -44,16 +47,17 @@ tbody {
 .sign-in ul {
     float: right;
     list-style: none;
+    margin-right: 27px;
 }
 
 .sign-in ul li {
     float: left;
-    margin: 10px 20px;
+    margin: 10px 30px;
 }
 
 .sign-in ul li:first-child {
     border-right: 1px solid #ffffff;
-    padding-right: 20px;
+    padding-right: 30px;
     margin-right: 0;
 }
 
@@ -120,14 +124,8 @@ tbody {
 }
 
 .content-wrapper {
-    width: 1400px;
+    width: 1200px;
     margin: 0 auto;
-}
-
-body.front .content-wrapper {
-    overflow: hidden;
-    background: url("../images/background.png") no-repeat;
-    background-position: 0 131px;
 }
 
 .header-main {
@@ -140,16 +138,15 @@ body.front .content-wrapper {
 }
 
 .left-sidebar {
-    width: 1106px;
-    display: table-cell;
+    width: 973px;
 }
 
 .right-sidebar {
     background: #fff;
     display: table-cell;
     vertical-align: top;
-    padding: 0 22px;
     text-align: center;
+    width: 194px;
 }
 
 .views-field-field-rank {
@@ -181,10 +178,18 @@ body.front .content-wrapper {
 }
 
 .award-main {
-    overflow: hidden;
     background: #313438;
-    margin: 0 0 0 131px;
     padding: 22px 40px 0 10px;
+    position: relative;
+}
+
+.orange-line {
+    background: url("../images/orange-bg.png") repeat-x;
+    height: 25px;
+    width: 100px;
+    position: absolute;
+    left: -100px;
+    top: 25px;
 }
 
 .content-block h2 {
@@ -216,7 +221,7 @@ body.front .content-wrapper {
 }
 
 .footer {
-    margin: 150px 40px 0 131px;
+    margin: 150px 40px 0 80px;
     border-top: 5px solid #35383d;
 
     padding: 20px 10px;
@@ -294,9 +299,9 @@ h1.title {
     width: 670px;
     overflow: hidden;
     background-size: 20px;
-    margin-bottom: 20px;
-    margin-left: 125px;
+
     position: relative;
+    margin: 0 auto 20px;
 }
 
 .title-votes {
@@ -433,5 +438,17 @@ fieldset .fieldset-description {
 }
 
 #edit-simplenews {
+    display: none;
+}
+
+#edit-simplenews {
+    display: none;
+}
+
+#edit-field-logotipe-und-0-upload-button {
+    display: none;
+}
+
+#edit-field-photo-und-0-upload-button {
     display: none;
 }
