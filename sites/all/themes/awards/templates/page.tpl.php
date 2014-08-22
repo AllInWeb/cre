@@ -75,36 +75,38 @@
 
 <div class="wrapper">
 
+    <div class="header-top">
+        <div class="sign-in">
+            <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array(), )); ?>
+        </div>
+    </div>
+
+    <div class="header-main">
+        <div class="header">
+            <div class="logo">
+                <a href="<?php $front_page;?>/"><img src="<?php print $logo ?>" alt=""/></a>
+                <div class="clear"></div>
+            </div>
+
+            <div class="navigation">
+                <ul>
+                    <li><a href="<?php if (!$is_front): $front_page;?>/<?php endif ?>#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
+                    <li><a href="<?php if (!$is_front): $front_page;?> /<?php endif ?>#block-views-gallery-block" id='scroll-link'>Жюри CRE</a></li>
+                    <li><a href="<?php if (!$is_front): $front_page;?> /<?php endif ?>#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div class="ticket">
+                <?php print render($page['ticket']); ?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="content-wrapper<?php if ($is_front): ?> front<?php endif ?>">
 
-        <div class="header-top">
-            <div class="sign-in">
-                <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array(), )); ?>
-            </div>
-        </div>
 
-        <div class="header-main">
-            <div class="header">
-                <div class="logo">
-                    <a href="<?php $front_page;?>/"><img src="<?php print $logo ?>" alt=""/></a>
-                    <div class="clear"></div>
-                </div>
-
-                <div class="navigation">
-                    <ul>
-                        <li><a href="<?php if (!$is_front): $front_page;?>/<?php endif ?>#block-views-ustav-prime-block" id='scroll-link'>Устав премии</a></li>
-                        <li><a href="<?php if (!$is_front): $front_page;?> /<?php endif ?>#block-views-gallery-block" id='scroll-link'>Жюри CRE</a></li>
-                        <li><a href="<?php if (!$is_front): $front_page;?> /<?php endif ?>#block-views-cre-retail-awards-block" id='scroll-link'>Номинанты CRE</a></li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-
-                <div class="ticket">
-                    <?php print render($page['ticket']); ?>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
 
         <div class="content-main">
             <div class="left-sidebar">
@@ -112,6 +114,7 @@
 
                 <div class="content-block" id='first'>
                     <div class="award-main">
+                        <div class="orange-line"></div>
                         <?php if (!$is_front): ?><?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?><?php endif ?>
                         <?php print $messages; ?>
 
@@ -121,12 +124,14 @@
 
                 <div class="content-block" id='third'>
                     <div class="award-main">
+                        <div class="orange-line"></div>
                         <?php print render($page['carusel']); ?>
                     </div>
                 </div>
 
                 <div class="content-block" id='third'>
                     <div class="award-main">
+                        <div class="orange-line"></div>
                         <?php print render($page['nominees']); ?>
                     </div>
                 </div>
