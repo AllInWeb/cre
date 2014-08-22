@@ -31,12 +31,14 @@ function awards_juri_page_callback()
 {
     global $user;
     if ($user->uid) {
-        if ((isset($user->roles[4]) && $user->roles[4]) || $user->uid == 1) {
+        if ((isset($user->roles[4]) && $user->roles[4])) {
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
             $form_edit = drupal_get_form('user_profile_form', $user);
 
             return theme('retailer_page', array('form_edit' => $form_edit));
+        } else if ($user->uid == 1){
+            drupal_goto('<front>');
         } else {
             drupal_goto('user/retailer');
         }
@@ -61,12 +63,14 @@ function awards_retailer_page_callback()
 {
     global $user;
     if ($user->uid) {
-        if ((isset($user->roles[5]) && $user->roles[5]) || $user->uid == 1) {
+        if ((isset($user->roles[5]) && $user->roles[5])) {
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
             $form_edit = drupal_get_form('user_profile_form', $user);
 
             return theme('retailer_page', array('form_edit' => $form_edit));
+        } else if ($user->uid == 1){
+            drupal_goto('<front>');
         } else {
             drupal_goto('user/juri');
         }
@@ -135,30 +139,22 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['timezone']['#access'] = false;
             $form['picture']['#access'] = false;
             $form['field_logotipe']['#access'] = false;
-
             retailerRules($form);
         } else if (isset($user->roles[4]) && $user->roles[4]) {
             $form['locale']['#access'] = false;
             $form['timezone']['#access'] = false;
             $form['picture']['#access'] = false;
             $form['field_photo']['#access'] = false;
-
             juriRules($form);
-        } else if (isset($user->uid) && $user->uid == 1) {
+        } else if (user_access('administer')) {
             $form['picture']['#access'] = false;
             $form['locale']['#access'] = false;
             $form['timezone']['#access'] = false;
-            if ($form['account']['roles']["#default_value"][1] == 4) {
-                juriRules($form);
-            } else if ($form['account']['roles']["#default_value"][1] == 5) {
-                retailerRules($form);
-            } else if (user_access('administer')) {
-                $form['field_fio']['und'][0]['value']['#required'] = 0;
-                $form['field_fio']['#access'] = false;
-                $form['account']['status']['#access'] = false;
-                retailerRules($form);
-                juriRules($form);
-            }
+            $form['field_fio']['#access'] = false;
+            $form['account']['status']['#access'] = false;
+            $form['field_fio']['und'][0]['value']['#required'] = 0;
+            retailerRules($form);
+            juriRules($form);
         }
     }
 }
@@ -171,7 +167,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
  */
 function awards_user_presave(&$edit, $account, $category)
 {
-    if (isset($edit['user_role']) && !($edit['user_role'] == '') && $account->is_new) {
+    if (isset($edit['user_role']) && $account->is_new) {
         if ($edit['user_role'] == 'juri') {
             $edit['roles'][4] = true;
         } else if ($edit['user_role'] == 'retailer') {
