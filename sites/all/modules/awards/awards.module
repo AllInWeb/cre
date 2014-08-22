@@ -110,7 +110,6 @@ function awards_theme($existing, $type, $theme, $path)
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
     if ('user_register_form' == $form_id) {
-        krumo($form);
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
