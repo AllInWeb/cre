@@ -117,7 +117,13 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             } else if ($_GET['q'] == 'user/juri') {
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
-                $form['account']['name']['#default_value'] = 'user' . mt_rand(1,10000);
+                $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
+                $form['account']['pass'] = array(
+                    '#type' => 'password',
+                    '#title' => t('Password'),
+                    '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
+                    '#attributes' => array('value' => autoGeneratePassword()),
+                );
                 adminUserJuriRegistration($form);
                 adminUserRetailerRegistration($form);
             }
@@ -165,7 +171,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
  */
 function awards_user_presave(&$edit, $account, $category)
 {
-    if (isset($edit['user_role']) && $account->is_new) {
+    if (isset($edit['user_role']) && !($edit['user_role'] == '') && $account->is_new) {
         if ($edit['user_role'] == 'juri') {
             $edit['roles'][4] = true;
         } else if ($edit['user_role'] == 'retailer') {
@@ -366,4 +372,9 @@ function adminUserRetailerRegistration(&$form)
             'input[name="roles[5]"]' => array('checked' => TRUE)
         )
     );
+}
+
+function autoGeneratePassword()
+{
+    return 'Rx' . mt_rand(1, 1000) . 'DBn' . mt_rand(1, 800);
 }
