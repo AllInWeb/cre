@@ -134,7 +134,8 @@ body.front .wrapper {
 }
 
 .left-sidebar {
-    width: 976px;
+    width: 983px;
+    display: table-cell;
 }
 
 .right-sidebar {
