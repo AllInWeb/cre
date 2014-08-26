@@ -128,6 +128,16 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                     '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
                     '#attributes' => array('value' => autoGeneratePassword()),
                 );
+                /* $form['field_fio']['#states'] = array(
+                    'visible' => array(
+                        'input[name="roles[5]"]' => array('checked' => TRUE),
+                    )
+                );
+                $form['field_fio']['#states'] = array(
+                    'visible' => array(
+                        'input[name="roles[4]"]' => array('checked' => TRUE),
+                    )
+                );*/
                 adminUserJuriRegistration($form);
                 adminUserRetailerRegistration($form);
             }
@@ -151,6 +161,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['locale']['#access'] = false;
             $form['timezone']['#access'] = false;
             $form['field_fio']['#access'] = false;
+            $form['account']['status']['#access'] = false;
             $form['field_fio']['und'][0]['value']['#required'] = 0;
             retailerRules($form);
             juriRules($form);
