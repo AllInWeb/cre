@@ -147,14 +147,19 @@
                     </div>
                 <?php endif; ?>
 
-                <div class="footer">
-                    <?php print render($page['footer']); ?>
-                </div>
+                <?php if ($page['footer']): ?>
+                    <div class="footer">
+                        <?php print render($page['footer']); ?>
+                    </div>
+                <?php endif; ?>
 
             </div>
-            <div class="right-sidebar">
-                <?php print render($page['right_sidebar']); ?>
-            </div>
+            <?php if ($page['right_sidebar']): ?>
+                <div class="right-sidebar">
+                    <?php print render($page['right_sidebar']); ?>
+                </div>
+            <?php endif; ?>
+            <div class="clear"></div>
         </div>
     </div>
 </div>
