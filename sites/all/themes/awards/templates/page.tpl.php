@@ -116,30 +116,36 @@
             <div class="left-sidebar">
                 <?php print render($page['date_event']); ?>
 
-                <div class="content-block" id='first'>
-                    <div class="award-main">
-                        <div class="orange-line"></div>
-                        <?php if (!$is_front): ?><?php if ($title): ?><h1 class="title"
-                                                                          id="page-title"><?php print $title; ?></h1><?php endif; ?><?php endif ?>
-                        <?php print $messages; ?>
+                <?php if ($page['ustav_prime']): ?>
+                    <div class="content-block" id='first'>
+                        <div class="award-main">
+                            <div class="orange-line"></div>
+                            <?php if (!$is_front): ?><?php if ($title): ?><h1 class="title"
+                                                                              id="page-title"><?php print $title; ?></h1><?php endif; ?><?php endif ?>
+                            <?php print $messages; ?>
 
-                        <?php print render($page['ustav_prime']); ?>
+                            <?php print render($page['ustav_prime']); ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
 
-                <div class="content-block" id='third'>
-                    <div class="award-main">
-                        <div class="orange-line"></div>
-                        <?php print render($page['carusel']); ?>
+                <?php if ($page['carusel']): ?>
+                    <div class="content-block" id='third'>
+                        <div class="award-main">
+                            <div class="orange-line"></div>
+                            <?php print render($page['carusel']); ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
 
-                <div class="content-block" id='third'>
-                    <div class="award-main">
-                        <div class="orange-line"></div>
-                        <?php print render($page['nominees']); ?>
+                <?php if ($page['nominees']): ?>
+                    <div class="content-block" id='third'>
+                        <div class="award-main">
+                            <div class="orange-line"></div>
+                            <?php print render($page['nominees']); ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
 
                 <div class="footer">
                     <?php print render($page['footer']); ?>
