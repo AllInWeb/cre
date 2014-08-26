@@ -151,7 +151,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['locale']['#access'] = false;
             $form['timezone']['#access'] = false;
             $form['field_fio']['#access'] = false;
-            $form['account']['status']['#access'] = false;
             $form['field_fio']['und'][0]['value']['#required'] = 0;
             retailerRules($form);
             juriRules($form);
