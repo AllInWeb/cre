@@ -18,7 +18,7 @@
             echo '<h3>Редактирование профиля</h3>';
             echo drupal_render($form_edit);
             if (isset($user->roles[4])) {
-                echo "<a class='voting-link' href='/content/five_most_popular_shops'>Приступить к голосованию</a>";
+                echo "<a class='voting-link' href='/voting/five_most_popular_shops'>Приступить к голосованию</a>";
             }
         }
         ?>
