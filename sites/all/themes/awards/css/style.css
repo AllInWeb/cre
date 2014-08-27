@@ -144,6 +144,8 @@ body.front .wrapper {
     vertical-align: top;
     text-align: center;
     width: 194px;
+    position: relative;
+    top: -89px;
 }
 
 marquee {
@@ -486,7 +488,7 @@ tr th {
     padding: 4px 9px;
     border: 1px solid #858b93;
     text-align: left; /* LTR */
-    color: #fff;
+    color: #adb6c3;
 }
 
 
@@ -508,7 +510,7 @@ caption {
 }
 
 a.username {
-    color: #ffffff;
+    color: #adb6c3;
 }
 
 /** ---------- Spoiler -----------*/
@@ -517,7 +519,7 @@ fieldset.collapsible {
     position: relative;
 }
 
-fieldset {
+#views-form-send-news-page fieldset {
     border: 1px solid #858b93;
     margin-top: 10px;
     margin-bottom: 32px;
@@ -530,7 +532,7 @@ fieldset {
     border-radius: 4px;
 }
 
-fieldset legend {
+#views-form-send-news-page fieldset legend {
     background: #4d4d4d;
     border: 1px solid #858b93;
     border-bottom: none;
@@ -556,7 +558,7 @@ fieldset legend {
     border-top-right-radius: 4px;
 }
 
-fieldset .fieldset-wrapper {
+#views-form-send-news-page fieldset .fieldset-wrapper {
     padding: 0 10px;
 }
 
@@ -569,11 +571,16 @@ fieldset .fieldset-wrapper {
     margin-top: 2px;
 }
 
+fieldset {
+    margin: 0;
+    padding: 0;
+}
+
 .form-actions a.active {
     background: #9b4a2f;
     padding: 3px 20px 4px;
     border: 0;
-    color: #ffffff;
+    color: #adb6c3;
     text-decoration: none;
     font-family: 'PT Sans Narrow', Arial, sans-serif;
     font-size: 14px;
@@ -582,9 +589,32 @@ fieldset .fieldset-wrapper {
 
 a.fieldset-title {
     text-decoration: none;
-    color: #ffffff;
+    color: #fff;
 }
 
 #edit-headers {
     display: none;
+}
+
+.sticky-enabled tr.even, tr.odd {
+     background:0;
+    border-bottom: 1px solid #ccc;
+    padding: 0.1em 0.6em;
+}
+
+#block-block-3 p {
+    height: 75px;
+    background: #9b4a2f;
+    padding-top: 15px;
+}
+
+#block-block-3 p a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+}
+
+.white-block {
+    height: 90px;
+    background: #ffffff;
 }

@@ -102,10 +102,6 @@
                 <div class="clear"></div>
             </div>
 
-            <div class="ticket">
-                <?php print render($page['ticket']); ?>
-                <div class="clear"></div>
-            </div>
         </div>
     </div>
 
@@ -158,8 +154,10 @@
                 <div class="right-sidebar">
                     <?php print render($page['right_sidebar']); ?>
                 </div>
+
             <?php endif; ?>
             <div class="clear"></div>
+            <div class="white-block"></div>
         </div>
     </div>
 </div>
