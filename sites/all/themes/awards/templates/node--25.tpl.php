@@ -10,4 +10,4 @@ module_load_include('inc', 'user', 'user.pages');
 $form = drupal_get_form('user_profile_form', $user);
 echo drupal_render($form);
 ?>
-<a class="voting-link" href="/voting/most_wanted_retailer">Перейти к следующему вопросу</a>
+<a class="go-to-vote-link" href="/voting/most_wanted_retailer">Перейти к следующему вопросу</a>
