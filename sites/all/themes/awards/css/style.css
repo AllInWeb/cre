@@ -48,7 +48,7 @@ body.front .wrapper {
 .sign-in ul {
     float: right;
     list-style: none;
-    margin-right: 32px;
+    margin-right: 17px;
 }
 
 .sign-in ul li {
@@ -216,7 +216,7 @@ marquee {
     display: block;
     width: 150px;
     height: 174px;
-    color: transparent;
+    font-size: 0;
 }
 
 .footer {
@@ -617,4 +617,7 @@ a.fieldset-title {
 .white-block {
     height: 90px;
     background: #ffffff;
+    width: 100%;
+    position: absolute;
+    bottom: -89px;
 }

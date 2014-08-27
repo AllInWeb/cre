@@ -116,9 +116,19 @@
                     <div class="content-block" id='first'>
                         <div class="award-main">
                             <div class="orange-line"></div>
-                            <?php if (!$is_front): ?><?php if ($title): ?><h1 class="title"
-                                                                              id="page-title"><?php print $title; ?></h1><?php endif; ?><?php endif ?>
-                            <?php print $messages; ?>
+                            <?php if (!$is_front): ?>
+                                <?php if ($title): ?>
+                                    <h1 class="title" id="page-title"><?php print $title; ?></h1>
+                                <?php endif; ?>
+                            <?php endif ?>
+
+                            <?php if ($messages): ?>
+                                <div id="messages">
+                                    <div class="section clearfix">
+                                        <?php print $messages; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
 
                             <?php print render($page['ustav_prime']); ?>
                         </div>
@@ -153,11 +163,10 @@
             <?php if ($page['right_sidebar']): ?>
                 <div class="right-sidebar">
                     <?php print render($page['right_sidebar']); ?>
+                    <div class="white-block"></div>
                 </div>
-
             <?php endif; ?>
             <div class="clear"></div>
-            <div class="white-block"></div>
         </div>
     </div>
 </div>
