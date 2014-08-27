@@ -112,6 +112,8 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
+//    krumo($form_id);
+//    krumo($form);
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
@@ -140,6 +142,9 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             $form['field_logotipe']['#access'] = false;
             retailerRules($form);
         } else if (isset($user->roles[4]) && $user->roles[4]) {
+//            if (isset($_GET['q'])) {
+//
+//            }
             $form['locale']['#access'] = false;
             $form['timezone']['#access'] = false;
             $form['picture']['#access'] = false;
@@ -181,6 +186,17 @@ function awards_user_presave(&$edit, $account, $category)
  */
 function juriRules(&$form)
 {
+    $form['field_voting1']['#access'] = false;
+    $form['field_voting2']['#access'] = false;
+    $form['field_user_shop1']['#access'] = false;
+    $form['field_user_shop2']['#access'] = false;
+    $form['field_user_shop3']['#access'] = false;
+    $form['field_user_shop4']['#access'] = false;
+    $form['field_user_shop5']['#access'] = false;
+    $form['field_user_ret1']['#access'] = false;
+    $form['field_user_ret2']['#access'] = false;
+    $form['field_user_ret3']['#access'] = false;
+
     $form['simplenews']['newsletters']['#default_value'][1] = false;
     $form['field_name']['#access'] = false;
     $form['field_logotipe']['#access'] = false;
@@ -216,6 +232,17 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
+    $form['field_voting1']['#access'] = false;
+    $form['field_voting2']['#access'] = false;
+    $form['field_user_shop1']['#access'] = false;
+    $form['field_user_shop2']['#access'] = false;
+    $form['field_user_shop3']['#access'] = false;
+    $form['field_user_shop4']['#access'] = false;
+    $form['field_user_shop5']['#access'] = false;
+    $form['field_user_ret1']['#access'] = false;
+    $form['field_user_ret2']['#access'] = false;
+    $form['field_user_ret3']['#access'] = false;
+
     $form['simplenews']['newsletters']['#default_value'][0] = false;
     $form['field_field_audience_en_']['#access'] = true;
     $form['field_photo']['#access'] = false;
