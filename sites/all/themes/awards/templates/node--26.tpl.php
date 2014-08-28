@@ -10,4 +10,4 @@ module_load_include('inc', 'user', 'user.pages');
 $form = drupal_get_form('user_profile_form', $user);
 echo drupal_render($form);
 ?>
-<?php print l(t('На главную'), '<front>' , array('attributes' => array('class' => array('go-to-vote-link'))));?>
+<?php print l(t('На главную'), '<front>' , array('attributes' => array('class' => array('go-to-vote-link'), 'id' => array('voting-margin'))));?>

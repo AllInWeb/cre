@@ -264,7 +264,8 @@ input.form-submit, .go-to-vote-link {
 .go-to-vote-link {
     float: left;
     display: block;
-    margin-top: 10px;
+    margin: 10px;
+    text-decoration: none;
 }
 
 .go-to-vote-link a {
@@ -636,4 +637,8 @@ a.fieldset-title {
     width: 100%;
     position: absolute;
     bottom: -89px;
+}
+
+#voting-margin {
+    margin: 10px 0;
 }

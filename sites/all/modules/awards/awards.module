@@ -140,7 +140,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             if (isset($_GET['q'])) {
                 if ($_GET['q'] !== 'user/juri') {
                     if ($_GET['q'] == 'node/25') {
-                        $form['field_photo']['#access'] = false;
                         $form['field_user_shop1']['#access'] = true;
                         $form['field_user_shop2']['#access'] = true;
                         $form['field_user_shop3']['#access'] = true;
@@ -153,7 +152,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                         juriRules($form);
                         disableJuriFields($form);
                     } elseif ($_GET['q'] == 'node/26') {
-                        $form['field_photo']['#access'] = false;
                         $form['field_user_shop1']['#access'] = false;
                         $form['field_user_shop2']['#access'] = false;
                         $form['field_user_shop3']['#access'] = false;
@@ -165,6 +163,20 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                         disableStatndartFields($form);
                         juriRules($form);
                         disableJuriFields($form);
+                    } elseif ($_GET['q'] == 'node/27') {
+                        $form['field_voting1']['#access'] = false;
+                        $form['field_voting2']['#access'] = false;
+                        $form['field_photo']['#access'] = false;
+                        $form['field_user_shop1']['#access'] = false;
+                        $form['field_user_shop2']['#access'] = false;
+                        $form['field_user_shop3']['#access'] = false;
+                        $form['field_user_shop4']['#access'] = false;
+                        $form['field_user_shop5']['#access'] = false;
+                        $form['field_user_ret1']['#access'] = false;
+                        $form['field_user_ret2']['#access'] = false;
+                        $form['field_user_ret3']['#access'] = false;
+                        disableStatndartFields($form);
+                        juriRules($form);
                     }
                 } else {
                     disableStatndartFields($form);
