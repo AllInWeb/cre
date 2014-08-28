@@ -112,6 +112,7 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
+//    krumo($form);
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
@@ -196,6 +197,15 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             retailerRules($form);
             juriRules($form);
         }
+    } else if ('views_form_send_news_page' == $form_id) {
+        $form['from']['#access'] = false;
+        $form['mail']['token']['#access'] = false;
+        $form['additional']['#access'] = false;
+        $form['views_send_direct']['#access'] = false;
+        $form['views_send_carbon_copy']['#access'] = false;
+        $form['views_send_remember']['#access'] = false;
+        $form['to']['views_send_to_mail']['#default_value'] = 'users_mail_pos_2';
+        $form['to']['#access'] = false;
     }
 }
 
@@ -241,11 +251,9 @@ function juriRules(&$form)
     $form['field_fio']['und'][0]['value']['#required']           = 1;
     $form['field_job']['und'][0]['value']['#required']           = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
-    $form['field_rireit']['und'][0]['value']['#required']        = 1;
     $form['field_fio_en']['und'][0]['value']['#required']        = 1;
     $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
     $form['field__company_en_']['und'][0]['value']['#required']  = 1;
-    $form['field_riteil_en_']['und'][0]['value']['#required']    = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
 
     return $form;

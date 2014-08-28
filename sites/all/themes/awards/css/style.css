@@ -644,3 +644,8 @@ a.fieldset-title {
 #voting-margin {
     margin: 10px 0;
 }
+
+#edit-views-send-message-format
+{
+    display: none;
+}
