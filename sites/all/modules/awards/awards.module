@@ -132,6 +132,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             }
         }
     } else if ('user_profile_form' == $form_id) {
+        krumo($form);
         global $user;
         if (isset($user->roles[5]) && $user->roles[5]) {
             disableStatndartFields($form);
@@ -141,6 +142,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 if ($_GET['q'] !== 'user/juri') {
                     if ($_GET['q'] == 'node/25') {
                         $form['field_user_shop1']['#access'] = true;
+                        $form['field_user_shop1']['und']['#title'] = 0;
                         $form['field_user_shop2']['#access'] = true;
                         $form['field_user_shop3']['#access'] = true;
                         $form['field_user_shop4']['#access'] = true;
