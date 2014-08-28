@@ -13,7 +13,7 @@ function awards_menu()
         'menu_name'       => 'main-menu',
     );
     $items['user/retailer'] = array(
-        'title'           => 'Личный кабинет ретейлера',
+        'title'           => 'Личный кабинет ритейлера',
         'page callback'   => 'awards_retailer_page_callback',
         'access callback' => true,
         'menu_name'       => 'main-menu',
@@ -55,7 +55,7 @@ function awards_juri_page_callback()
 }
 
 /**
- * Страница котурую увидит пользователя перейдя по ссылке 'Личный кабинет ретейлера'
+ * Страница котурую увидит пользователя перейдя по ссылке 'Личный кабинет ритейлера'
  * @return string
  */
 function awards_retailer_page_callback()
@@ -112,7 +112,6 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-//    krumo($form);
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
@@ -128,8 +127,12 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                     '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
                     '#attributes' => array('value' => autoGeneratePassword()),
                 );
-                adminUserJuriRegistration($form);
-                adminUserRetailerRegistration($form);
+                $form['account']['status']['#access'] = false;
+                $form['account']['roles']['#default_value'] = array(4);
+                $form['account']['roles']['#access'] = false;
+                $form['account']['notify']['#access'] = false;
+                $form['account']['notify']['#default_value'] = 1;
+                juriRules($form);
             }
         }
     } else if ('user_profile_form' == $form_id) {
@@ -170,17 +173,8 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                         juriRules($form);
                         disableJuriFields($form);
                     } elseif ($_GET['q'] == 'node/27') {
-                        $form['field_voting1']['#access']    = false;
-                        $form['field_voting2']['#access']    = false;
                         $form['field_photo']['#access']      = false;
-                        $form['field_user_shop1']['#access'] = false;
-                        $form['field_user_shop2']['#access'] = false;
-                        $form['field_user_shop3']['#access'] = false;
-                        $form['field_user_shop4']['#access'] = false;
-                        $form['field_user_shop5']['#access'] = false;
-                        $form['field_user_ret1']['#access']  = false;
-                        $form['field_user_ret2']['#access']  = false;
-                        $form['field_user_ret3']['#access']  = false;
+                        disableVotingFields($form);
                         disableStatndartFields($form);
                         juriRules($form);
                     }
@@ -260,7 +254,7 @@ function juriRules(&$form)
 }
 
 /**
- * Правила для полей форм для роли 'Ретейлер'
+ * Правила для полей форм для роли 'Ритейлер'
  * @param $form
  * @return mixed
  */
@@ -293,133 +287,6 @@ function retailerRules(&$form)
     $form['field_field_shop_points_en_']['und'][0]['value']['#required'] = 1;
 
     return $form;
-}
-
-/**
- * Отображение полей при создании пользователя с ролью жюри от имени администратора
- * @param $form
- */
-function adminUserJuriRegistration(&$form)
-{
-    $form['field_photo']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_job']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_company']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_rireit']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_fio_en']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_field_job_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field__company_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_riteil_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-    $form['field_company']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[4]"]' => array('checked' => true)
-        )
-    );
-}
-
-/**
- * Отображение полей при создании пользователя с ролью ретейлера от имени администратора
- * @param $form
- */
-function adminUserRetailerRegistration(&$form)
-{
-    $form['field_field_audience_en_']['#access'] = true;
-    $form['field_name']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_logotipe']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_short_decr']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_year_stand_network']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_audience']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_shop_points']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_shop_point_1_2014']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_shop_points_13_14']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_profit_dynamic']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_field_name_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_field_short_decr_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_field_audience_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
-    $form['field_field_shop_points_en_']['#states'] = array(
-        'visible' => array(
-            'input[name="roles[5]"]' => array('checked' => true)
-        )
-    );
 }
 
 /**
