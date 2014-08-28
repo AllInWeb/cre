@@ -649,3 +649,45 @@ a.fieldset-title {
 {
     display: none;
 }
+
+.sign {
+    float: left;
+    color: #ffffff;
+    margin: 10px 0 0 10px;
+    font-size: 16px;
+}
+
+.exit-link {
+    color: #ad4a1d;
+    margin-left: 20px;
+}
+
+.menu-content {
+    overflow: hidden;
+    text-align: center;
+    font-size: 18px;
+    margin: 15px 0 10px 0;
+}
+
+.menu-content a {
+    float: left;
+    color: #ffffff;
+    background: #9b4a2f;
+    text-decoration: none;
+    margin: 10px 20px 10px 10px;
+    border-radius: 5px;
+    width: 430px;
+    height: 100px;
+    padding: 10px;
+}
+
+.menu-content a p {
+    font-size: 36px;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+}
+
+.menu-content a span {
+    display: block;
+    margin-top: 10px;
+}
