@@ -77,6 +77,11 @@
 
     <div class="header-top">
         <div class="sign-in">
+            <?php if ($page['sign']): ?>
+                <div class="sign">
+                    <?php print render($page['sign']); ?>
+                </div>
+            <?php endif; ?>
             <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array(),)); ?>
         </div>
     </div>
