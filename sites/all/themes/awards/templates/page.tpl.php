@@ -99,7 +99,6 @@
                         <a href="<?php if (!$is_front): $front_page; ?> /<?php endif ?>#block-views-cre-retail-awards-block"
                            id='scroll-link'>Номинанты CRE</a></li>
                 </ul>
-                <div class="clear"></div>
             </div>
 
         </div>

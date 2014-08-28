@@ -130,22 +130,24 @@ body.front .wrapper {
 }
 
 .content-main {
-    display: table;
+    position: relative;
 }
 
 .left-sidebar {
     width: 983px;
-    display: table-cell;
+    float: left;
 }
 
 .right-sidebar {
     background: #fff;
-    display: table-cell;
+    float: left;
     vertical-align: top;
     text-align: center;
     width: 194px;
-    position: relative;
+    position: absolute;
     top: -89px;
+    right: 23px;
+    height: 100%;
 }
 
 marquee {
