@@ -373,17 +373,17 @@ a.cboxElement {
     padding-left: 10px;
 }
 
-.views-field-field-fio {
+.jcarousel-container .views-field-field-fio {
     text-transform: uppercase;
     color: #fff;
     font-size: 16px;
 }
 
-.views-field-field-job {
+.jcarousel-container .views-field-field-job {
     color: #ffffff;
 }
 
-.views-field-field-company {
+.jcarousel-container .views-field-field-company {
     text-transform: uppercase;
     color: #b8c7e0;
 }
@@ -504,7 +504,7 @@ table tbody tr th {
 
 tr td,
 tr th {
-    padding: 4px 9px;
+    padding: 4px;
     border: 1px solid #858b93;
     text-align: left; /* LTR */
     color: #adb6c3;
