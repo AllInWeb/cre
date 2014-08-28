@@ -241,11 +241,9 @@ function juriRules(&$form)
     $form['field_fio']['und'][0]['value']['#required']           = 1;
     $form['field_job']['und'][0]['value']['#required']           = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
-    $form['field_rireit']['und'][0]['value']['#required']        = 1;
     $form['field_fio_en']['und'][0]['value']['#required']        = 1;
     $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
     $form['field__company_en_']['und'][0]['value']['#required']  = 1;
-    $form['field_riteil_en_']['und'][0]['value']['#required']    = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
 
     return $form;
