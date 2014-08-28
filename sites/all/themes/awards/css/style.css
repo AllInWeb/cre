@@ -256,11 +256,21 @@ input.form-text, textarea {
     max-width: 97%;
 }
 
-input.form-submit {
+input.form-submit, .go-to-vote-link {
     background: #9b4a2f;
     padding: 5px 20px;
     border: 0;
     color: #ffffff;
+}
+
+.go-to-vote-link {
+    float: left;
+    display: block;
+    margin-top: 10px;
+}
+
+.go-to-vote-link a {
+    text-decoration: none;
 }
 
 .description {
@@ -466,25 +476,31 @@ table {
     margin: 10px 0;
     width: 100%;
 }
+
 table table {
     font-size: 1em;
 }
+
 #footer-wrapper table {
     font-size: 1em;
 }
+
 table tr th {
     background: #4d4d4d;
     border-bottom-style: none;
 }
+
 table tr th,
 table tr th a,
 table tr th a:hover {
     color: #FFF;
     font-weight: bold;
 }
+
 table tbody tr th {
     vertical-align: top;
 }
+
 tr td,
 tr th {
     padding: 4px 9px;
@@ -493,12 +509,12 @@ tr th {
     color: #adb6c3;
 }
 
-
 table ul.links {
     margin: 0;
     padding: 0;
     font-size: 1em;
 }
+
 table ul.links li {
     padding: 0 1em 0 0;
 }
@@ -508,7 +524,7 @@ caption {
 }
 
 .views-field-views-send .form-item, .form-actions {
-     margin: 0;
+    margin: 0;
 }
 
 a.username {
@@ -599,7 +615,7 @@ a.fieldset-title {
 }
 
 .sticky-enabled tr.even, tr.odd {
-     background:0;
+    background: 0;
     border-bottom: 1px solid #ccc;
     padding: 0.1em 0.6em;
 }
