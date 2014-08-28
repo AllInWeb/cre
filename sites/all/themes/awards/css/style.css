@@ -645,8 +645,7 @@ a.fieldset-title {
     margin: 10px 0;
 }
 
-#edit-views-send-message-format
-{
+#edit-views-send-message-format {
     display: none;
 }
 
@@ -690,4 +689,13 @@ a.fieldset-title {
 .menu-content a span {
     display: block;
     margin-top: 10px;
+}
+
+#node-2 .field-name-body {
+    width: 50%;
+    float: right;
+}
+
+#webform-client-form-2 {
+    width: 400px;
 }
