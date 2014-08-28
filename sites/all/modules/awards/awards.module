@@ -357,8 +357,8 @@ function disableVotingFields(&$form)
 function disableStatndartFields(&$form)
 {
     $form['picture']['#access']  = false;
-    $form['locale']['#access']   = false;
-    $form['timezone']['#access'] = false;
+/*    $form['locale']['#access']   = false;
+    $form['timezone']['#access'] = false;*/
 
     return $form;
 }
