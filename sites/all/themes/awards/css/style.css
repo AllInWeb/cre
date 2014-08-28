@@ -649,3 +649,7 @@ a.fieldset-title {
 {
     display: none;
 }
+
+#edit-locale {
+    visibility: hidden;
+}
