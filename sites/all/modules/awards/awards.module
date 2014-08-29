@@ -119,9 +119,11 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/retailer';
+                $form['field_token_com']['und'][0]['value']['#default_value'] ='Название сети';
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
-                $form['field_log_url']['und'][0]['value']['#default_value']  = $GLOBALS['base_url'] . '/user/juri';
+                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
+                $form['field_token_com']['und'][0]['value']['#default_value'] = 'Компания';
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
                 $form['field_log_url']['und'][0]['value']['#default_value']  = $GLOBALS['base_url'] . '/user/juri';
@@ -226,6 +228,7 @@ function awards_user_presave(&$edit, $account, $category)
  */
 function juriRules(&$form)
 {
+    $form['field_token_com']                                     = false;
     $form['field_log_url']['#access']                            = false;
     $form['field_name']['#access']                               = false;
     $form['field_logotipe']['#access']                           = false;
@@ -258,6 +261,7 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
+    $form['field_token_com']                                             = false;
     $form['field_log_url']['#access']                                    = false;
     $form['field_field_audience_en_']['#access']                         = true;
     $form['field_photo']['#access']                                      = false;
