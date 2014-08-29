@@ -143,7 +143,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                     drupal_goto('user/retailer');
                 }
             }
-            disableStatndartFields($form);
             retailerRules($form);
         } else if (isset($user->roles[4]) && $user->roles[4]) {
             if (isset($_GET['q'])) {
@@ -157,7 +156,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                         $form['field_user_ret1']['#access']  = false;
                         $form['field_user_ret2']['#access']  = false;
                         $form['field_user_ret3']['#access']  = false;
-                        disableStatndartFields($form);
                         juriRules($form);
                         disableJuriFields($form);
                     } elseif ($_GET['q'] == 'node/26') {
@@ -169,17 +167,14 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                         $form['field_user_ret1']['#access']  = true;
                         $form['field_user_ret2']['#access']  = true;
                         $form['field_user_ret3']['#access']  = true;
-                        disableStatndartFields($form);
                         juriRules($form);
                         disableJuriFields($form);
                     } elseif ($_GET['q'] == 'node/27') {
                         $form['field_photo']['#access']      = false;
                         disableVotingFields($form);
-                        disableStatndartFields($form);
                         juriRules($form);
                     }
                 } else {
-                    disableStatndartFields($form);
                     disableVotingFields($form);
                     juriRules($form);
                 }
@@ -187,7 +182,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         } else if (user_access('administer')) {
             $form['field_fio']['#access'] = false;
             $form['field_fio']['und'][0]['value']['#required'] = 0;
-            disableStatndartFields($form);
             retailerRules($form);
             juriRules($form);
         }
@@ -227,7 +221,7 @@ function awards_user_presave(&$edit, $account, $category)
  */
 function juriRules(&$form)
 {
-    $form['simplenews']['newsletters']['#default_value'][1]      = false;
+    $form['picture']['#access']                                  = false;
     $form['field_name']['#access']                               = false;
     $form['field_logotipe']['#access']                           = false;
     $form['field_short_decr']['#access']                         = false;
@@ -261,7 +255,7 @@ function juriRules(&$form)
 function retailerRules(&$form)
 {
     disableVotingFields($form);
-    $form['simplenews']['newsletters']['#default_value'][0]              = false;
+    $form['picture']['#access']                                          = false;
     $form['field_field_audience_en_']['#access']                         = true;
     $form['field_photo']['#access']                                      = false;
     $form['field_job']['#access']                                        = false;
@@ -345,20 +339,6 @@ function disableVotingFields(&$form)
     $form['field_user_ret1']['#access']  = false;
     $form['field_user_ret2']['#access']  = false;
     $form['field_user_ret3']['#access']  = false;
-
-    return $form;
-}
-
-/**
- * Отключение стандартных полей
- * @param $form
- * @return mixed
- */
-function disableStatndartFields(&$form)
-{
-    $form['picture']['#access']  = false;
-/*    $form['locale']['#access']   = false;
-    $form['timezone']['#access'] = false;*/
 
     return $form;
 }
