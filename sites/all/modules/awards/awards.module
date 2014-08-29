@@ -114,18 +114,21 @@ function awards_form_alter(&$form, &$form_state, $form_id)
 {
     $form['field_voting1']['#access']    = false;
     $form['field_voting2']['#access']    = false;
+    $form['field_token_com']['#access']  = false;
+
     if ('user_register_form' == $form_id) {
         $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/retailer';
-                $form['field_token_com']['und'][0]['value']['#default_value'] ='Название сети';
+                $form['field_token_com']['und'][0]['value']['#default_value'] ='название сети';
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
-                $form['field_token_com']['und'][0]['value']['#default_value'] = 'Компания';
+                $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
+                $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
                 $form['field_log_url']['und'][0]['value']['#default_value']  = $GLOBALS['base_url'] . '/user/juri';
                 $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
                 $form['account']['pass'] = array(
@@ -228,7 +231,6 @@ function awards_user_presave(&$edit, $account, $category)
  */
 function juriRules(&$form)
 {
-    $form['field_token_com']                                     = false;
     $form['field_log_url']['#access']                            = false;
     $form['field_name']['#access']                               = false;
     $form['field_logotipe']['#access']                           = false;
@@ -261,7 +263,6 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
-    $form['field_token_com']                                             = false;
     $form['field_log_url']['#access']                                    = false;
     $form['field_field_audience_en_']['#access']                         = true;
     $form['field_photo']['#access']                                      = false;
