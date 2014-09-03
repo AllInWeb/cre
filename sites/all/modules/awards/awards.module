@@ -30,16 +30,27 @@ function awards_juri_page_callback()
 {
     global $user;
     if ($user->uid) {
-        if (isset($user->roles[4])) {
+        if ((isset($user->roles[4]) && $user->roles[4])) {
+            $user = user_load($user->uid);
+            module_load_include('inc', 'user', 'user.pages');
+            $form_edit = drupal_get_form('user_profile_form', $user);
 
-            return theme('retailer_page');
-        } else if (user_access('administer')) {
+            return theme('retailer_page', array('form_edit' => $form_edit));
+        } else if ($user->uid == 1) {
             drupal_goto('<front>');
         } else {
             drupal_goto('user/retailer');
         }
     } else {
-        return registerPageRender();
+        $form_login = drupal_get_form("user_login");
+        $form_register = drupal_get_form("user_register_form");
+        $form_register['user_role']['#value'] = 'juri';
+
+        return theme('retailer_page', array(
+                'form_register' => $form_register,
+                'form_login'    => $form_login,
+            )
+        );
     }
 }
 
@@ -51,19 +62,27 @@ function awards_retailer_page_callback()
 {
     global $user;
     if ($user->uid) {
-        if (isset($user->roles[5])) {
+        if ((isset($user->roles[5]) && $user->roles[5])) {
             $user = user_load($user->uid);
             module_load_include('inc', 'user', 'user.pages');
             $form_edit = drupal_get_form('user_profile_form', $user);
 
             return theme('retailer_page', array('form_edit' => $form_edit));
-        } else if (user_access('administer')) {
+        } else if ($user->uid == 1) {
             drupal_goto('<front>');
         } else {
             drupal_goto('user/juri');
         }
     } else {
-       return registerPageRender();
+        $form_login = drupal_get_form("user_login");
+        $form_register = drupal_get_form("user_register_form");
+        $form_register['user_role']['#value'] = 'retailer';
+
+        return theme('retailer_page', array(
+                'form_register' => $form_register,
+                'form_login'    => $form_login,
+            )
+        );
     }
 }
 
@@ -93,41 +112,42 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
+    $form['field_voting1']['#access']    = false;
+    $form['field_voting2']['#access']    = false;
+    $form['field_token_com']['#access']  = false;
+
     if ('user_register_form' == $form_id) {
+        $form['user_role'] = array('#type' => 'hidden', '#default_value' => '');
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
-                $form['account']['roles'][5] = array('#type' => 'checkbox', '#title' => 'Ритейлер', '#default_value' => true, '#disabled' => true);
-                $form['field_log_url']['und'][0]['value']['#default_value']   = $GLOBALS['base_url'] . '/user/retailer';
-                $form['field_token_com']['und'][0]['value']['#default_value'] = 'название сети';
+                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/retailer';
+                $form['field_token_com']['und'][0]['value']['#default_value'] ='название сети';
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
-                $form['account']['roles'][4] = array('#type' => 'checkbox', '#title' => 'Жюри', '#default_value' => true, '#disabled' => true);
-                $form['field_log_url']['und'][0]['value']['#default_value']   = $GLOBALS['base_url'] . '/user/juri';
+                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
-                $form['account']['status']['#access']        = false;
-                $form['account']['roles']['#access']         = false;
-                $form['account']['notify']['#access']        = false;
-                $form['account']['name']['#default_value']   = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
-                $form['account']['notify']['#default_value'] = 1;
-                $form['account']['roles']['#default_value']  = array(4);
-                $form['account']['pass'] = array(
-                    '#type'        => 'password',
-                    '#title'       => t('Пароль'),
-                    '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
-                    '#attributes'  => array('value' => autoGeneratePassword()),
-                );
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
-                $form['field_log_url']['und'][0]['value']['#default_value']   = $GLOBALS['base_url'] . '/user/juri';
+                $form['field_log_url']['und'][0]['value']['#default_value']  = $GLOBALS['base_url'] . '/user/juri';
+                $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
+                $form['account']['pass'] = array(
+                    '#type' => 'password',
+                    '#title' => t('Password'),
+                    '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
+                    '#attributes' => array('value' => autoGeneratePassword()),
+                );
+                $form['account']['status']['#access'] = false;
+                $form['account']['roles']['#default_value'] = array(4);
+                $form['account']['roles']['#access'] = false;
+                $form['account']['notify']['#access'] = false;
+                $form['account']['notify']['#default_value'] = 1;
                 juriRules($form);
             }
         }
     } else if ('user_profile_form' == $form_id) {
         global $user;
-        $form['account']['pass']['#access']         = false;
-        $form['account']['mail']['#access']         = false;
-        $form['account']['current_pass']['#access'] = false;
+
         if (isset($user->roles[5]) && $user->roles[5]) {
             if (isset($_GET['q'])) {
                 if ($_GET['q'] !== 'user/retailer') {
@@ -135,48 +155,80 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 }
             }
             retailerRules($form);
-        } else if (isset($user->roles[4])) {
+        } else if (isset($user->roles[4]) && $user->roles[4]) {
             if (isset($_GET['q'])) {
                 if ($_GET['q'] !== 'user/juri') {
-                    juriRules($form);
-                    switch ($_GET['q']) {
-                        case 'node/25':
-                            $form['field_user_shop1']['#access'] = true;
-                            $form['field_user_shop2']['#access'] = true;
-                            $form['field_user_shop3']['#access'] = true;
-                            $form['field_user_shop4']['#access'] = true;
-                            $form['field_user_shop5']['#access'] = true;
-                            $fields = array('field_fio', 'field_user_ret1', 'field_user_ret2', 'field_user_ret3');
-                            setFieldsAccessFalse($fields, $form);
-                            disableJuriFields($form);
-                            break;
-                        case 'node/26':
-                            $form['field_user_ret1']['#access'] = true;
-                            $form['field_user_ret2']['#access'] = true;
-                            $form['field_user_ret3']['#access'] = true;
-                            $fields = array('field_fio', 'field_user_shop1', 'field_user_shop2', 'field_user_shop3', 'field_user_shop4', 'field_user_shop5');
-                            setFieldsAccessFalse($fields, $form);
-                            disableJuriFields($form);
-                            break;
-                        default:
-                            disableVotingFields($form);
-                            break;
+                    if ($_GET['q'] == 'node/25') {
+                        $form['field_user_shop1']['#access'] = true;
+                        $form['field_user_shop2']['#access'] = true;
+                        $form['field_user_shop3']['#access'] = true;
+                        $form['field_user_shop4']['#access'] = true;
+                        $form['field_user_shop5']['#access'] = true;
+                        $form['field_user_ret1']['#access']  = false;
+                        $form['field_user_ret2']['#access']  = false;
+                        $form['field_user_ret3']['#access']  = false;
+                        juriRules($form);
+                        disableJuriFields($form);
+                    } else if ($_GET['q'] == 'node/26') {
+                        $form['field_user_shop1']['#access'] = false;
+                        $form['field_user_shop2']['#access'] = false;
+                        $form['field_user_shop3']['#access'] = false;
+                        $form['field_user_shop4']['#access'] = false;
+                        $form['field_user_shop5']['#access'] = false;
+                        $form['field_user_ret1']['#access']  = true;
+                        $form['field_user_ret2']['#access']  = true;
+                        $form['field_user_ret3']['#access']  = true;
+                        juriRules($form);
+                        disableJuriFields($form);
+                    } elseif ($_GET['q'] == 'node/27') {
+                        disableVotingFields($form);
+                        juriRules($form);
                     }
+                } else {
+                    disableVotingFields($form);
+                    juriRules($form);
                 }
             }
         } else if (user_access('administer')) {
-            if ($form['account']['roles']['#default_value'][1] == 4) {
-                disableVotingFields($form);
-                juriRules($form);
-            } else if ($form['account']['roles']['#default_value'][1] == 5) {
-                retailerRules($form);
-            }
+            $form['field_fio']['#access'] = false;
+            $form['field_fio']['und'][0]['value']['#required'] = 0;
+            retailerRules($form);
+            juriRules($form);
         }
     } else if ('views_form_send_news_page' == $form_id) {
-        $send_fields = array('from', 'additional', 'views_send_direct', 'views_send_carbon_copy', 'views_send_remember', 'to');
-        setFieldsAccessFalse($send_fields, $form);
+        $form['from']['#access'] = false;
         $form['mail']['token']['#access'] = false;
+        $form['additional']['#access'] = false;
+        $form['views_send_direct']['#access'] = false;
+        $form['views_send_carbon_copy']['#access'] = false;
+        $form['views_send_remember']['#access'] = false;
         $form['to']['views_send_to_mail']['#default_value'] = 'users_mail_pos_2';
+        $form['to']['#access'] = false;
+    } else if ('vote_node_form' == $form_id) {
+        $form['actions']['submit']['#submit'][] = '_awards_node_form_submit';
+    }
+}
+
+function _awards_node_form_submit($form, &$form_state)
+{
+    module_load_include('inc', 'node', 'node.pages');
+    $form_state['redirect'] = array($_GET['q']);
+}
+
+/**
+ * Назначение роли пользователя при регистрации
+ * @param $edit
+ * @param $account
+ * @param $category
+ */
+function awards_user_presave(&$edit, $account, $category)
+{
+    if (isset($edit['user_role']) && $account->is_new) {
+        if ($edit['user_role'] == 'juri') {
+            $edit['roles'][4] = true;
+        } else if ($edit['user_role'] == 'retailer') {
+            $edit['roles'][5] = true;
+        }
     }
 }
 
@@ -187,15 +239,28 @@ function awards_form_alter(&$form, &$form_state, $form_id)
  */
 function juriRules(&$form)
 {
-    $fields = array('field_log_url', 'field_name', 'field_logotipe', 'field_short_decr', 'field_year_stand_network',
-        'field_audience', 'field_shop_point_1_2014', 'field_shop_points_13_14', 'field_shop_points', 'field_profit_dynamic', 'field_field_name_en_',
-        'field_field_short_decr_en_', 'field_field_audience_en_', 'field_field_shop_points_en_','field_token_com', 'field_voting2', 'field_voting1'
-    );
-    $required_fields = array('field_fio', 'field_job', 'field_company', 'field_fio_en', 'field_field_job_en_', 'field__company_en_', 'field_company');
-    foreach ($required_fields as $key => $required_field) {
-        $form[$required_field]['und'][0]['value']['#required'] = 1;
-    }
-    setFieldsAccessFalse($fields, $form);
+    $form['field_log_url']['#access']                            = false;
+    $form['field_name']['#access']                               = false;
+    $form['field_logotipe']['#access']                           = false;
+    $form['field_short_decr']['#access']                         = false;
+    $form['field_year_stand_network']['#access']                 = false;
+    $form['field_audience']['#access']                           = false;
+    $form['field_shop_points']['#access']                        = false;
+    $form['field_shop_point_1_2014']['#access']                  = false;
+    $form['field_shop_points_13_14']['#access']                  = false;
+    $form['field_profit_dynamic']['#access']                     = false;
+    $form['field_field_name_en_']['#access']                     = false;
+    $form['field_field_short_decr_en_']['#access']               = false;
+    $form['field_field_audience_en_']['#access']                 = false;
+    $form['field_field_shop_points_en_']['#access']              = false;
+    $form['field_fio']['und'][0]['value']['#required']           = 1;
+    $form['field_job']['und'][0]['value']['#required']           = 1;
+    $form['field_company']['und'][0]['value']['#required']       = 1;
+    $form['field_fio_en']['und'][0]['value']['#required']        = 1;
+    $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
+    $form['field__company_en_']['und'][0]['value']['#required']  = 1;
+    $form['field_company']['und'][0]['value']['#required']       = 1;
+
     return $form;
 }
 
@@ -206,16 +271,25 @@ function juriRules(&$form)
  */
 function retailerRules(&$form)
 {
-    $form['field_fio']['und'][0]['value']['#required']  = 1;
-    $form['field_name']['und'][0]['value']['#required'] = 1;
-    disableJuriFields($form);
+    $form['field_log_url']['#access']                                    = false;
+    $form['field_field_audience_en_']['#access']                         = true;
+    $form['field_photo']['#access']                                      = false;
+    $form['field_job']['#access']                                        = false;
+    $form['field_company']['#access']                                    = false;
+    $form['field_rireit']['#access']                                     = false;
+    $form['field_fio_en']['#access']                                     = false;
+    $form['field_field_job_en_']['#access']                              = false;
+    $form['field__company_en_']['#access']                               = false;
+    $form['field_riteil_en_']['#access']                                 = false;
+    $form['field_fio']['und'][0]['value']['#required']                   = 1;
+    $form['field_name']['und'][0]['value']['#required']                  = 1;
     disableVotingFields($form);
 
     return $form;
 }
 
 /**
- * Генерация пароля
+ * Авто-генерация пароля
  * @return string
  */
 function autoGeneratePassword()
@@ -234,10 +308,19 @@ function autoGeneratePassword()
  */
 function disableJuriFields(&$form)
 {
-    $fields = array('field_log_url', 'field_photo', 'field_job', 'field_company', 'field_rireit', 'field_fio_en',
-        'field_field_job_en_', 'field__company_en_', 'field_riteil_en_', 'field_token_com', 'field_voting2', 'field_voting1'
-    );
-    setFieldsAccessFalse($fields, $form);
+    $form['field_field_audience_en_']['#access'] = false;
+    $form['account']['pass']['#access']          = false;
+    $form['account']['mail']['#access']          = false;
+    $form['account']['current_pass']['#access']  = false;
+    $form['field_photo']['#access']              = false;
+    $form['field_job']['#access']                = false;
+    $form['field_company']['#access']            = false;
+    $form['field_rireit']['#access']             = false;
+    $form['field_fio_en']['#access']             = false;
+    $form['field_fio']['#access']                = false;
+    $form['field_field_job_en_']['#access']      = false;
+    $form['field__company_en_']['#access']       = false;
+    $form['field_riteil_en_']['#access']         = false;
 
     return $form;
 }
@@ -249,38 +332,14 @@ function disableJuriFields(&$form)
  */
 function disableVotingFields(&$form)
 {
-    $fields = array('field_user_shop1', 'field_user_shop2', 'field_user_shop3', 'field_user_shop4',
-        'field_user_shop5', 'field_user_ret1', 'field_user_ret2', 'field_user_ret3'
-    );
-    setFieldsAccessFalse($fields, $form);
+    $form['field_user_shop1']['#access'] = false;
+    $form['field_user_shop2']['#access'] = false;
+    $form['field_user_shop3']['#access'] = false;
+    $form['field_user_shop4']['#access'] = false;
+    $form['field_user_shop5']['#access'] = false;
+    $form['field_user_ret1']['#access']  = false;
+    $form['field_user_ret2']['#access']  = false;
+    $form['field_user_ret3']['#access']  = false;
 
     return $form;
-}
-
-/**
- * Скрывание полей на всех формах
- * @param array $fields
- * @param $form
- */
-function setFieldsAccessFalse(array $fields, &$form)
-{
-    foreach ($fields as $key => $field) {
-        $form[$field]['#access'] = false;
-    }
-}
-
-/**
- * Отрисовка страницы для Регистраца/Входа в личных кабтнетах
- * @return string
- */
-function registerPageRender()
-{
-    $form_login    = drupal_get_form("user_login");
-    $form_register = drupal_get_form("user_register_form");
-
-    return theme('retailer_page', array(
-            'form_register' => $form_register,
-            'form_login'    => $form_login,
-        )
-    );
 }

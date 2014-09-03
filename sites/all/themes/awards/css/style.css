@@ -700,3 +700,23 @@ a.fieldset-title {
 #webform-client-form-2 {
     width: 400px;
 }
+
+
+.view-first-vote {
+    overflow: hidden;
+
+}
+
+.merge {
+    float: left;
+    width: 50%;
+}
+
+.view-first-vote .views-row {
+    margin-bottom: 30px;
+}
+
+.view-first-vote .node-vote-form {
+    width: 49%;
+    float: right;
+}
