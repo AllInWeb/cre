@@ -204,7 +204,15 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         $form['views_send_remember']['#access'] = false;
         $form['to']['views_send_to_mail']['#default_value'] = 'users_mail_pos_2';
         $form['to']['#access'] = false;
+    } else if ('vote_node_form' == $form_id) {
+        $form['actions']['submit']['#submit'][] = '_awards_node_form_submit';
     }
+}
+
+function _awards_node_form_submit($form, &$form_state)
+{
+    module_load_include('inc', 'node', 'node.pages');
+    $form_state['redirect'] = array($_GET['q']);
 }
 
 /**
