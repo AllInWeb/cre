@@ -78,8 +78,13 @@ body.front .wrapper {
 /* --------- Header --------- */
 
 .logo a {
-    margin: 30px 0 0 10px;;
+    margin: 30px 0 0 10px;
     float: left;
+}
+
+.logo img {
+    max-width: 360px;
+    max-height: 40px;
 }
 
 .navigation ul {
@@ -173,10 +178,6 @@ marquee {
     font-weight: normal;
 }
 
-.content-block {
-    background: url("../images/orange-bg.png") repeat-x;
-    background-position: 0 25px;
-}
 
 .award-main {
     background: #313438;
@@ -185,7 +186,7 @@ marquee {
 }
 
 .orange-line {
-    background: url("../images/orange-bg.png") repeat-x;
+    background: #c3ab51;
     height: 25px;
     width: 100px;
     position: absolute;
@@ -257,7 +258,7 @@ input.form-text, textarea {
 }
 
 input.form-submit, .go-to-vote-link {
-    background: #9b4a2f;
+    background: #c3ab51;
     padding: 5px 20px;
     border: 0;
     color: #ffffff;
@@ -328,7 +329,7 @@ h1.title {
     right: 0;
     top: 0;
     background: #313438;
-    color: #dd5424;
+    color: #c3ab51;
     padding: 8px 0 7px 10px;
     position: absolute;
 }
@@ -431,7 +432,7 @@ fieldset .fieldset-description {
 }
 
 .sign-in a.active {
-    color: #9b4a2f;
+    color: #c3ab51;
     background: url("../images/jury.png") no-repeat;
 }
 
@@ -439,7 +440,7 @@ fieldset .fieldset-description {
     display: block;
     text-decoration: none;
     float: left;
-    background: #9b4a2f;
+    background: #c3ab51;
     padding: 10px 40px;
     border: 0;
     color: #ffffff;
@@ -596,7 +597,7 @@ fieldset {
 }
 
 .form-actions a.active {
-    background: #9b4a2f;
+    background: #c3ab51;
     padding: 3px 20px 4px;
     border: 0;
     color: #adb6c3;
@@ -623,7 +624,7 @@ a.fieldset-title {
 
 #block-block-3 p {
     height: 75px;
-    background: #9b4a2f;
+    background: #c3ab51;
     padding-top: 15px;
 }
 
@@ -657,7 +658,7 @@ a.fieldset-title {
 }
 
 .exit-link {
-    color: #ad4a1d;
+    color: #c3ab51;
     margin-left: 20px;
 }
 
@@ -671,7 +672,7 @@ a.fieldset-title {
 .menu-content a {
     float: left;
     color: #ffffff;
-    background: #9b4a2f;
+    background: #c3ab51;
     text-decoration: none;
     margin: 10px 20px 10px 10px;
     border-radius: 5px;
