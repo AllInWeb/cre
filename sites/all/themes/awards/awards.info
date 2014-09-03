@@ -1,8 +1,8 @@
-name = Awards
-description = Модуль сайта CRE Retail Awards.
-package = Core
-version = 1.0
+name = CRE Retail Awards
+description = Модуль для сайта CRE Retail Awards
+package = Awards
 core = 7.x
+version = 1.0
 
 stylesheets[all][] = css/style.css
 scripts[] = js/jquery.js

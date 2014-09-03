@@ -1,4 +1,5 @@
-name = Awards
+name = CRE Retail Awards
 description = Модуль для сайта CRE Retail Awards
 package = Awards
 core = 7.x
+version = 1.0
