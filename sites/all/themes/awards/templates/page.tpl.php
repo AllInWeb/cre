@@ -157,11 +157,9 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if ($page['footer']): ?>
-                    <div class="footer">
-                        <?php print render($page['footer']); ?>
-                    </div>
-                <?php endif; ?>
+                <div class="footer">
+                    <p>Copyright Russian Collection, 2014</p>
+                </div>
 
             </div>
             <?php if ($page['right_sidebar']): ?>
