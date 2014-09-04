@@ -158,7 +158,75 @@
                 <?php endif; ?>
 
                 <div class="footer">
-                    <p>Copyright Russian Collection, 2014</p>
+                    <div class="footer-left">
+                        <p>За дополнительной информацией обращайтесь:</p>
+                        <span>+7 (495) 926 73 40</span>
+                        <p>Copyright Russian Collection, 2014</p>
+                    </div>
+                    <div class="footer-right">
+                        <ul>
+                            <li>
+                                <p class="bold">Александра Сморжевская,</p>
+                                <p>директор департамента ритейла,</p>
+                                <p>Email: <a href="mailto:a.smorzhevskaya@impressmedia.ru">a.smorzhevskaya@impressmedia.ru</a></p>
+                            </li>
+                            <li>
+                                <p class="bold">Екатерина Минаева,</p>
+                                <p>руководитель отдела организации премий CRE Awards,</p>
+                                <p>Email: <a href="mailto:e.minaeva@impressmedia.ru">e.minaeva@impressmedia.ru</a></p>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <p>По вопросам участия:</p>
+                                <p><span>Евгения Родионова,</span> руководитель отдела телемаркетинг</p>
+                                <p>Email: <a href="mailto:a.smorzhevskaya@impressmedia.ru">a.smorzhevskaya@impressmedia.ru</a></p>
+                            </li>
+                            <li>
+                                <p>По вопросам партнерства:</p>
+                                <p><span>Олег Блохин,</span> коммерческий директор</p>
+                                <p>Email: <a href="mailto:o.blohin@impressmedia.ru">o.blohin@impressmedia.ru</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-logo">
+                    <a href="http://www.imevents.ru/rc/">
+                        <?php
+                        $variables
+                            = array(
+                            'path' => 'sites/all/themes/awards/images/rc.png',
+                        );
+                        print $img = theme('image', $variables);
+                        ?>
+                    </a>
+                    <a href="http://www.cre.ru">
+                        <?php
+                        $variables
+                            = array(
+                            'path' => 'sites/all/themes/awards/images/cre.png',
+                        );
+                        print $img = theme('image', $variables);
+                        ?>
+                    </a>
+                    <a href="http://www.imevents.ru/">
+                        <?php
+                        $variables
+                            = array(
+                            'path' => 'sites/all/themes/awards/images/im-events.png',
+                        );
+                        print $img = theme('image', $variables);
+                        ?>
+                    </a>
+                    <a href="http://www.cre-awards.ru/">
+                        <?php
+                        $variables
+                            = array(
+                            'path' => 'sites/all/themes/awards/images/cre-award.png',
+                        );
+                        print $img = theme('image', $variables);
+                        ?>
+                    </a>
                 </div>
 
             </div>

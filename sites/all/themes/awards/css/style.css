@@ -223,13 +223,63 @@ marquee {
 
 .footer {
     margin: 150px 40px 0 0;
-    border-top: 5px solid #35383d;
-
-    padding: 20px 10px;
+    border-top: 5px solid #555d68;
+    padding: 30px 10px;
+    overflow: hidden;
 }
 
 .footer p {
     color: #fff;
+}
+
+.footer-left {
+    float: left;
+}
+
+.footer-left span {
+    font-size: 24px;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 60px;
+}
+
+.footer-right {
+    float: right;
+}
+
+.footer-right ul {
+    list-style: none;
+    overflow: hidden;
+    float: left;
+}
+
+.footer-right ul li {
+    margin: 0 30px 20px 0;
+}
+
+.footer-right p.bold {
+    font-weight: bold;
+}
+
+.footer-right p a {
+    color: #bea858;
+}
+
+.footer-right span {
+    font-weight: bold;
+}
+
+.footer-logo {
+    border-top: 5px solid #555d68;
+    padding: 30px 10px;
+    margin-right: 40px;
+    overflow: hidden;
+}
+
+.footer-logo a {
+    width: 24%;
+    display: inline-block;
+    text-align: center;
 }
 
 .content {
