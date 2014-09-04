@@ -708,8 +708,8 @@ a.fieldset-title {
 }
 
 .merge {
-    float: left;
-    width: 50%;
+    float: right;
+    width: 40%;
 }
 
 .view-first-vote .views-row {
@@ -718,5 +718,5 @@ a.fieldset-title {
 
 .view-first-vote .node-vote-form {
     width: 49%;
-    float: right;
+    float: left;
 }

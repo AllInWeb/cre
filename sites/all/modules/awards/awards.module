@@ -205,6 +205,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         $form['to']['views_send_to_mail']['#default_value'] = 'users_mail_pos_2';
         $form['to']['#access'] = false;
     } else if ('vote_node_form' == $form_id) {
+        $form['field_shop_1']['und']['#prefix'] = '<h1 class="title">Назовите 5 (пять) самых популярных (посещаемых) магазинов в вашем торговом центре</h1><div id="field-shop-1-add-more-wrapper">';
         $form['actions']['submit']['#submit'][] = '_awards_node_form_submit';
     }
 }
