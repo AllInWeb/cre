@@ -213,11 +213,11 @@ function awards_form_alter(&$form, &$form_state, $form_id)
 function _awards_node_form_submit($form, &$form_state)
 {
     module_load_include('inc', 'node', 'node.pages');
-        if ($_GET['q'] == 'node/25') {
-            $form_state['redirect'] = array('node/26');
-        } else if ($_GET['q'] == 'add_tc') {
-            $form_state['redirect'] = array($_GET['q']);
-        }
+    if ($_GET['q'] == 'node/25') {
+        $form_state['redirect'] = array('node/26');
+    } else if ($_GET['q'] == 'add_tc') {
+        $form_state['redirect'] = array($_GET['q']);
+    }
 }
 
 /**
