@@ -1,9 +1,7 @@
 <?php
-
 /**
  * @file
  * Default simple view template to display a list of rows.
- *
  * @ingroup views_templates
  */
 ?>
@@ -19,7 +17,6 @@
 </div>
 <?php
     module_load_include('inc', 'node', 'node.pages');
-
     $form = node_add('vote');
     echo $output = drupal_render($form);
 ?>
