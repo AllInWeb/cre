@@ -16,7 +16,6 @@ regions[ustav_prime] = Устав
 regions[nominees] = Номинанты
 regions[carusel] = Карусель
 regions[content] = Content
-regions[footer] = Footer
 regions[sign] = Вход на сайт
 regions[left_sidebar] = Left sidebar
 regions[right_sidebar] = Right sidebar
