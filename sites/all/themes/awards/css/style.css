@@ -83,7 +83,7 @@ body.front .wrapper {
 }
 
 .logo img {
-    max-width: 360px;
+    width: 360px;
     max-height: 40px;
 }
 
@@ -277,9 +277,13 @@ marquee {
 }
 
 .footer-logo a {
-    width: 24%;
     display: inline-block;
     text-align: center;
+    margin-left: 80px;
+}
+
+.footer-logo a:first-child{
+    margin: 0;
 }
 
 .content {
