@@ -9,6 +9,12 @@ img {
     border: 0;
 }
 
+input {
+  font: inherit;
+  max-width: 100%;
+}
+ 
+
 body {
     font-family: 'PT Sans Narrow', Arial, sans-serif;
     font-size: 14px;
@@ -350,7 +356,10 @@ h1.title {
 .authorization {
     float: left;
     position: relative;
-    width: 45%;
+}
+
+.authorization p {
+    margin-bottom: 20px;
 }
 
 .role-form {

@@ -18,21 +18,25 @@
             echo '<h3>Редактирование профиля</h3>';
             echo drupal_render($form_edit);
         } else if (isset($user->roles[4])) {
+            echo "<p>Для ввода информации о самых успешных магазинах / сетях / брендах Вашего торгового центра нажмите кнопку «приступить к голосованию». После ввода данных нажмите кнопку «сохранить» и «перейти к следующему вопросу». Перечислите самые ожидаемые в России бренды, еще не пришедшие на российский рынок. Сохраните введенную информацию, нажав кнопку «сохранить. Если Вы представляете несколько ТЦ, то нажмите «добавить ТЦ». Вы можете подать информацию по любому количеству торговых центров.</p>";
             echo "<a class='go-to-vote-link' href='/voting/five_most_popular_shops'>Приступить к голосованию</a>";
             echo "<a class='go-to-vote-link' href='/juri/account/edit'>Редактировать профиль</a>";
             echo '<a class="go-to-vote-link" href="/add_tc">Добавить ТЦ</a>';
         }
         ?>
     </div>
-    <div class="role-form">
+
         <?php
         if (isset($form_register)) {
+            echo '<div class="role-form">';
             if (isset($_GET['q']) && $_GET['q'] == 'user/retailer') {
                 echo '<h3>Зарегистрировать сеть</h3>';
             } else if (isset($_GET['q']) && $_GET['q'] == 'user/juri') {
                 echo '<h3>Регистрация жюри</h3>';
             }
             echo drupal_render($form_register);
+            echo '</div>';
         } ?>
-    </div>
+
+
 </div>
