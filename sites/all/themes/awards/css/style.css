@@ -9,6 +9,12 @@ img {
     border: 0;
 }
 
+input {
+  font: inherit;
+  max-width: 100%;
+}
+ 
+
 body {
     font-family: 'PT Sans Narrow', Arial, sans-serif;
     font-size: 14px;
@@ -72,7 +78,7 @@ body.front .wrapper {
 }
 
 .sign-in ul li.last a {
-    background: url("/sites/all/themes/awards/images/jury.png") no-repeat;
+    background: url("../images/jury.png") no-repeat;
 }
 
 /* --------- Header --------- */
@@ -350,11 +356,14 @@ h1.title {
 .authorization {
     float: left;
     position: relative;
-    width: 45%;
+}
+
+.authorization p {
+    margin-bottom: 20px;
 }
 
 .role-form {
-    padding-left: 50px;
+    padding-left: 60px;
     border-left: 1px solid #72777e;
     float: right;
     width: 45%;

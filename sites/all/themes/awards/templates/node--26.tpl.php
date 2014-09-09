@@ -13,4 +13,4 @@
     $form = drupal_get_form('user_profile_form', $user);
     echo drupal_render($form);
 ?>
-<a class="go-to-vote-link" href="/add_tc" id="voting-margin">Добавить ТЦ</a>
+<a class="go-to-vote-link" href="<?php print $GLOBALS['base_url'] ?>/add_tc" id="voting-margin">Добавить ТЦ</a>
