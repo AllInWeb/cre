@@ -7,5 +7,5 @@ if ($logged_in == true) {
     } else {
         echo 'Здравствуйте, ' . $user->name;
     }
-    echo '<a href="/user/logout" class="exit-link">Выйти</a>';
+    echo '<a href="' . $GLOBALS['base_url'] . '/user/logout" class="exit-link">Выйти</a>';
 }

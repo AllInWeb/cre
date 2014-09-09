@@ -89,19 +89,19 @@
     <div class="header-main">
         <div class="header">
             <div class="logo">
-                <a href="<?php $front_page; ?>/"><img src="<?php print $logo ?>" alt=""/></a>
+                <a href="<?php print $front_page; ?>"><img src="<?php print $logo ?>" alt=""/></a>
 
                 <div class="clear"></div>
             </div>
 
             <div class="navigation">
                 <ul>
-                    <li><a href="<?php if (!$is_front): $front_page; ?>/<?php endif ?>#block-views-ustav-prime-block"
+                    <li><a href="<?php if (!$is_front): print $front_page; ?><?php endif ?>#block-views-ustav-prime-block"
                            id='scroll-link'>Устав премии</a></li>
-                    <li><a href="<?php if (!$is_front): $front_page; ?> /<?php endif ?>#block-views-gallery-block"
+                    <li><a href="<?php if (!$is_front): print $front_page; ?><?php endif ?>#block-views-gallery-block"
                            id='scroll-link'>Жюри CRE</a></li>
                     <li>
-                        <a href="<?php if (!$is_front): $front_page; ?> /<?php endif ?>#block-views-cre-retail-awards-block"
+                        <a href="<?php if (!$is_front): print $front_page; ?><?php endif ?>#block-views-cre-retail-awards-block"
                            id='scroll-link'>Номинанты CRE</a></li>
                 </ul>
             </div>
