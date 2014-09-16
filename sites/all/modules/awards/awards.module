@@ -173,8 +173,14 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         $form['mail']['token']['#access'] = false;
         $form['to']['views_send_to_mail']['#default_value'] = 'users_mail_pos_2';
     } else if ('vote_node_form' == $form_id) {
-        $form['field_shop_1']['und']['#prefix'] = '<h1 class="title">Назовите 5 (пять) самых популярных (посещаемых) магазинов в вашем торговом центре</h1><div id="field-shop-1-add-more-wrapper">';
         $form['actions']['submit']['#submit'][] = '_awards_node_form_submit';
+        $form['field_hypermarket_1']['und']['#prefix'] = '<div class="hide-lebel"><h3>Гипермаркет</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_elektronika_1']['und']['#prefix'] = '<h3>Электроника и бытовая техника</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_clothing_1']['und']['#prefix'] = '<h3>Одежда и обувь</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_remont_1']['und']['#prefix'] = '<h3>Дом и ремонт</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_parent_1']['und']['#prefix'] = '<h3>Дети и родители</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_rus_set_1']['und']['#prefix'] = '<h3>Самая ожидаемая в России сеть</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_rus_set_3']['und']['#suffix'] = '</div>';
     }
 }
 
@@ -202,9 +208,6 @@ function juriRules(&$form)
     $form['field_fio']['und'][0]['value']['#required']           = 1;
     $form['field_job']['und'][0]['value']['#required']           = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
-    $form['field_fio_en']['und'][0]['value']['#required']        = 1;
-    $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
-    $form['field__company_en_']['und'][0]['value']['#required']  = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
 
     return $form;
