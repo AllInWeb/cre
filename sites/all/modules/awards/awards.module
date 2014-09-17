@@ -108,7 +108,7 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-    $fields = array('field_voting2', 'field_token_com', 'field_log_url');
+    $fields = array('field_voting2', 'field_token_com', 'field_log_url', 'field_clean_pass');
     setFieldAccess($form, $fields);
     if ('user_register_form' == $form_id) {
         if (isset($_GET['q'])) {
@@ -140,6 +140,8 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 juriRules($form);
             }
         }
+        $form['field_clean_pass']['#access']        = false;
+        $form['#validate'][]   = 'awardsRegistrationSubmit';
     } else if ('user_profile_form' == $form_id) {
         global $user;
         if (isset($user->roles[5]) && $user->roles[5]) {
@@ -182,6 +184,16 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         $form['field_rus_set_1']['und']['#prefix'] = '<h3>Самая ожидаемая в России сеть</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
         $form['field_rus_set_3']['und']['#suffix'] = '</div>';
     }
+}
+
+function awardsRegistrationSubmit($form, &$form_state) {
+//    $form['field_clean_pass']['und'][0]['value']['#default_value'] = $form['account']['pass']['pass1']['#value'];
+    form_set_value($form['field_clean_pass'],
+        array('und' => array(0 => array('value' => $form['account']['pass']['pass1']['#value']))),
+        $form_state);
+//    krumo($form);
+//    krumo($form_state);
+//    die();
 }
 
 function _awards_node_form_submit($form, &$form_state)

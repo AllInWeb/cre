@@ -15,8 +15,6 @@
         if (isset($form_login)) {
             echo '<h3>Войти</h3>';
             echo drupal_render($form_login);
-            echo '<a href="/user/password" class="change-pass" title="Запросить новый пароль по электронной почте.">Забыли пароль?</a>';
-
         }
         if (isset($form_edit) && isset($user->roles[5])) {
             echo '<h3>Редактирование профиля</h3>';
