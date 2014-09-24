@@ -179,8 +179,8 @@
                         <ul>
                             <li>
                                 <p>По вопросам участия:</p>
-                                <p><span>Евгения Родионова,</span> руководитель отдела телемаркетинг</p>
-                                <p>Email: <a href="mailto:a.smorzhevskaya@impressmedia.ru">a.smorzhevskaya@impressmedia.ru</a></p>
+                                <p><span>Екатерина Удалова,</span> руководитель отдела телемаркетинг</p>
+                                <p>Email: <a href="mailto:e.udalova@impressmedia.ru">e.udalova@impressmedia.ru</a></p>
                             </li>
                             <li>
                                 <p>По вопросам партнерства:</p>

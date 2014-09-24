@@ -113,16 +113,23 @@ function awards_form_alter(&$form, &$form_state, $form_id)
     if ('user_register_form' == $form_id) {
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
+                $form['field_clean_pass']['#access']        = false;
+                $form['#validate'][]   = 'awardsRegistrationSubmit';
                 $form['account']['roles'][5] = array('#type' => 'checkbox', '#title' => 'Ритейлер', '#default_value' => true, '#disabled' => true);
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/retailer';
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'название сети';
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
+                $form['field_clean_pass']['#access']        = false;
+                $form['#validate'][]   = 'awardsRegistrationSubmit';
                 $form['account']['roles'][4] = array('#type' => 'checkbox', '#title' => 'Жюри', '#default_value' => true, '#disabled' => true);
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
+                $generatePass = autoGeneratePassword();
+                $form['field_clean_pass']['und'][0]['value']['#default_value'] = $generatePass;
+//                krumo($form);
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
                 $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
@@ -130,7 +137,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                     '#type' => 'password',
                     '#title' => t('Password'),
                     '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
-                    '#attributes' => array('value' => autoGeneratePassword()),
+                    '#attributes' => array('value' => $generatePass),
                 );
                 $form['account']['status']['#access']        = false;
                 $form['account']['roles']['#default_value']  = array(4);
@@ -140,8 +147,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 juriRules($form);
             }
         }
-        $form['field_clean_pass']['#access']        = false;
-        $form['#validate'][]   = 'awardsRegistrationSubmit';
+
     } else if ('user_profile_form' == $form_id) {
         global $user;
         if (isset($user->roles[5]) && $user->roles[5]) {
@@ -186,14 +192,15 @@ function awards_form_alter(&$form, &$form_state, $form_id)
     }
 }
 
+/**
+ * Запись пароля в отдельное поле при регистрации пользователя
+ * @param $form
+ * @param $form_state
+ */
 function awardsRegistrationSubmit($form, &$form_state) {
-//    $form['field_clean_pass']['und'][0]['value']['#default_value'] = $form['account']['pass']['pass1']['#value'];
     form_set_value($form['field_clean_pass'],
         array('und' => array(0 => array('value' => $form['account']['pass']['pass1']['#value']))),
         $form_state);
-//    krumo($form);
-//    krumo($form_state);
-//    die();
 }
 
 function _awards_node_form_submit($form, &$form_state)
