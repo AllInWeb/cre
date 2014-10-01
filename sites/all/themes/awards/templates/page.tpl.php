@@ -102,7 +102,7 @@
                            id='scroll-link'>Жюри CRE</a></li>
                     <li>
                         <a href="<?php if (!$is_front): print $front_page; ?><?php endif ?>#block-views-cre-retail-awards-block"
-                           id='scroll-link'>Номинанты CRE</a></li>
+                           id='scroll-link'>Номинации CRE</a></li>
                 </ul>
             </div>
 
@@ -167,20 +167,20 @@
                         <ul>
                             <li>
                                 <p class="bold">Александра Сморжевская,</p>
-                                <p>директор департамента ритейла,</p>
+                                <p>директор департамента ритейла</p>
                                 <p>Email: <a href="mailto:a.smorzhevskaya@impressmedia.ru">a.smorzhevskaya@impressmedia.ru</a></p>
                             </li>
                             <li>
                                 <p class="bold">Екатерина Минаева,</p>
-                                <p>руководитель отдела организации премий CRE Awards,</p>
+                                <p>руководитель отдела организации премий CRE Awards</p>
                                 <p>Email: <a href="mailto:e.minaeva@impressmedia.ru">e.minaeva@impressmedia.ru</a></p>
                             </li>
                         </ul>
                         <ul>
                             <li>
                                 <p>По вопросам участия:</p>
-                                <p><span>Евгения Родионова,</span> руководитель отдела телемаркетинг</p>
-                                <p>Email: <a href="mailto:a.smorzhevskaya@impressmedia.ru">a.smorzhevskaya@impressmedia.ru</a></p>
+                                <p><span>Екатерина Удалова,</span> руководитель отдела телемаркетинг</p>
+                                <p>Email: <a href="mailto:e.udalova@impressmedia.ru">e.udalova@impressmedia.ru</a></p>
                             </li>
                             <li>
                                 <p>По вопросам партнерства:</p>

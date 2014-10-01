@@ -108,30 +108,38 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
+    krumo($form);
     $fields = array('field_voting2', 'field_token_com', 'field_log_url');
     setFieldAccess($form, $fields);
     if ('user_register_form' == $form_id) {
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
+                $form['field_clean_pass']['#access']        = false;
+                $form['#validate'][]   = 'awardsRegistrationSubmit';
                 $form['account']['roles'][5] = array('#type' => 'checkbox', '#title' => 'Ритейлер', '#default_value' => true, '#disabled' => true);
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/retailer';
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'название сети';
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
+                $form['field_clean_pass']['#access']        = false;
+                $form['#validate'][]   = 'awardsRegistrationSubmit';
                 $form['account']['roles'][4] = array('#type' => 'checkbox', '#title' => 'Жюри', '#default_value' => true, '#disabled' => true);
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
+                $generatePass = autoGeneratePassword();
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
-                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
-                $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
                 $form['account']['pass'] = array(
                     '#type' => 'password',
                     '#title' => t('Password'),
                     '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
-                    '#attributes' => array('value' => autoGeneratePassword()),
+                    '#attributes' => array('value' => $generatePass),
                 );
+                $form['field_clean_pass']['#access']        = false;
+//                $form['field_clean_pass']['und'][0]['value']['#default_value'] = $form['account']['pass']['#attributes']['value'];
+                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
+                $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
                 $form['account']['status']['#access']        = false;
                 $form['account']['roles']['#default_value']  = array(4);
                 $form['account']['roles']['#access']         = false;
@@ -140,6 +148,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 juriRules($form);
             }
         }
+
     } else if ('user_profile_form' == $form_id) {
         global $user;
         if (isset($user->roles[5]) && $user->roles[5]) {
@@ -173,11 +182,44 @@ function awards_form_alter(&$form, &$form_state, $form_id)
         $form['mail']['token']['#access'] = false;
         $form['to']['views_send_to_mail']['#default_value'] = 'users_mail_pos_2';
     } else if ('vote_node_form' == $form_id) {
-        $form['field_shop_1']['und']['#prefix'] = '<h1 class="title">Назовите 5 (пять) самых популярных (посещаемых) магазинов в вашем торговом центре</h1><div id="field-shop-1-add-more-wrapper">';
         $form['actions']['submit']['#submit'][] = '_awards_node_form_submit';
+        $form['field_hypermarket_1']['und']['#prefix'] = '<div class="hide-lebel"><h3>Гипермаркет</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_elektronika_1']['und']['#prefix'] = '<h3>Электроника и бытовая техника</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_clothing_1']['und']['#prefix'] = '<h3>Одежда и обувь</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_remont_1']['und']['#prefix'] = '<h3>Дом и ремонт</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_parent_1']['und']['#prefix'] = '<h3>Дети и родители</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_rus_set_1']['und']['#prefix'] = '<h3>Самая ожидаемая в России сеть</h3><span class="form-required" title="Это поле обязательно для заполнения.">*</span><div class="field-shop-1-add-more-wrapper">';
+        $form['field_rus_set_3']['und']['#suffix'] = '</div>';
     }
 }
 
+
+function awards_user_presave(&$edit, $account, $category) {
+//    var_dump($edit);
+    dsm($edit);
+    dsm($account);
+    // Make sure that our form value 'mymodule_foo' is stored as
+    // 'mymodule_bar' in the 'data' (serialized) column.
+    if (isset($account->pass)) {
+        $edit['field_clean_pass']['und'][0]['value'] = $account->pass;
+    }
+}
+
+/**
+ * Запись пароля в отдельное поле при регистрации пользователя
+ * @param $form
+ * @param $form_state
+ */
+function awardsRegistrationSubmit($form, &$form_state) {
+    form_set_value($form['field_clean_pass'],
+        array('und' => array(0 => array('value' => $form['account']['pass']['pass1']['#value']))),
+        $form_state);
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
 function _awards_node_form_submit($form, &$form_state)
 {
     module_load_include('inc', 'node', 'node.pages');
@@ -202,9 +244,6 @@ function juriRules(&$form)
     $form['field_fio']['und'][0]['value']['#required']           = 1;
     $form['field_job']['und'][0]['value']['#required']           = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
-    $form['field_fio_en']['und'][0]['value']['#required']        = 1;
-    $form['field_field_job_en_']['und'][0]['value']['#required'] = 1;
-    $form['field__company_en_']['und'][0]['value']['#required']  = 1;
     $form['field_company']['und'][0]['value']['#required']       = 1;
 
     return $form;

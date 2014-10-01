@@ -146,7 +146,6 @@ body.front .wrapper {
 
 .left-sidebar {
     width: 983px;
-    float: left;
 }
 
 .right-sidebar {
@@ -316,11 +315,19 @@ input.form-text, textarea {
     max-width: 97%;
 }
 
-input.form-submit, .go-to-vote-link {
+input.form-submit, .go-to-vote-link, .change-pass {
     background: #c3ab51;
     padding: 5px 20px;
     border: 0;
     color: #ffffff;
+    cursor: pointer;
+}
+
+.change-pass {
+    display: block;
+    margin-top: 10px;
+    float: left;
+    text-decoration: none;
 }
 
 .go-to-vote-link {
@@ -409,7 +416,7 @@ h1.title {
 }
 
 .region-carusel .view-gallery {
-    height: 410px;
+    height: 420px;
 }
 
 .jcarousel-skin-default {
@@ -781,4 +788,27 @@ a.fieldset-title {
 .view-first-vote .node-vote-form {
     width: 49%;
     float: left;
+}
+
+#edit-field-hypermarket-1 label {
+    display: none;
+}
+
+#edit-field-hypermarket-1 h3 {
+    color: #858b93;
+    font-size: 24px;
+    font-weight: bold;
+    float: left;
+}
+
+.field-shop-1-add-more-wrapper {
+    clear: both;
+}
+
+.view-first-vote .views-field p {
+    margin-top: 10px;
+}
+
+.vertical-tabs.clearfix {
+    display: none;
 }
