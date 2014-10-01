@@ -108,7 +108,8 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-    $fields = array('field_voting2', 'field_token_com', 'field_log_url', 'field_clean_pass');
+    krumo($form);
+    $fields = array('field_voting2', 'field_token_com', 'field_log_url');
     setFieldAccess($form, $fields);
     if ('user_register_form' == $form_id) {
         if (isset($_GET['q'])) {
@@ -128,17 +129,17 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 juriRules($form);
             } else if ($_GET['q'] == 'admin/people/create') {
                 $generatePass = autoGeneratePassword();
-                $form['field_clean_pass']['und'][0]['value']['#default_value'] = $generatePass;
-//                krumo($form);
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'компания';
-                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
-                $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
                 $form['account']['pass'] = array(
                     '#type' => 'password',
                     '#title' => t('Password'),
                     '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
                     '#attributes' => array('value' => $generatePass),
                 );
+                $form['field_clean_pass']['#access']        = false;
+//                $form['field_clean_pass']['und'][0]['value']['#default_value'] = $form['account']['pass']['#attributes']['value'];
+                $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
+                $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
                 $form['account']['status']['#access']        = false;
                 $form['account']['roles']['#default_value']  = array(4);
                 $form['account']['roles']['#access']         = false;
@@ -192,6 +193,18 @@ function awards_form_alter(&$form, &$form_state, $form_id)
     }
 }
 
+
+function awards_user_presave(&$edit, $account, $category) {
+//    var_dump($edit);
+    dsm($edit);
+    dsm($account);
+    // Make sure that our form value 'mymodule_foo' is stored as
+    // 'mymodule_bar' in the 'data' (serialized) column.
+    if (isset($account->pass)) {
+        $edit['field_clean_pass']['und'][0]['value'] = $account->pass;
+    }
+}
+
 /**
  * Запись пароля в отдельное поле при регистрации пользователя
  * @param $form
@@ -203,6 +216,10 @@ function awardsRegistrationSubmit($form, &$form_state) {
         $form_state);
 }
 
+/**
+ * @param $form
+ * @param $form_state
+ */
 function _awards_node_form_submit($form, &$form_state)
 {
     module_load_include('inc', 'node', 'node.pages');
