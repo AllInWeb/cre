@@ -108,20 +108,17 @@ function awards_theme($existing, $type, $theme, $path)
  */
 function awards_form_alter(&$form, &$form_state, $form_id)
 {
-    krumo($form);
-    $fields = array('field_voting2', 'field_token_com', 'field_log_url');
+    $fields = array('field_voting2', 'field_token_com', 'field_log_url','field_clean_pass');
     setFieldAccess($form, $fields);
     if ('user_register_form' == $form_id) {
         if (isset($_GET['q'])) {
             if ($_GET['q'] == 'user/retailer') {
-                $form['field_clean_pass']['#access']        = false;
                 $form['#validate'][]   = 'awardsRegistrationSubmit';
                 $form['account']['roles'][5] = array('#type' => 'checkbox', '#title' => 'Ритейлер', '#default_value' => true, '#disabled' => true);
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/retailer';
                 $form['field_token_com']['und'][0]['value']['#default_value'] = 'название сети';
                 retailerRules($form);
             } else if ($_GET['q'] == 'user/juri') {
-                $form['field_clean_pass']['#access']        = false;
                 $form['#validate'][]   = 'awardsRegistrationSubmit';
                 $form['account']['roles'][4] = array('#type' => 'checkbox', '#title' => 'Жюри', '#default_value' => true, '#disabled' => true);
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
@@ -136,8 +133,6 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                     '#description' => t('Пароль згенерирован, но вы можете назначить его вручную'),
                     '#attributes' => array('value' => $generatePass),
                 );
-                $form['field_clean_pass']['#access']        = false;
-//                $form['field_clean_pass']['und'][0]['value']['#default_value'] = $form['account']['pass']['#attributes']['value'];
                 $form['field_log_url']['und'][0]['value']['#default_value'] = $GLOBALS['base_url'] . '/user/juri';
                 $form['account']['name']['#default_value'] = 'user' . mt_rand(1, 10000) . 'CRE' . mt_rand(1, 800);
                 $form['account']['status']['#access']        = false;
@@ -148,9 +143,9 @@ function awards_form_alter(&$form, &$form_state, $form_id)
                 juriRules($form);
             }
         }
-
     } else if ('user_profile_form' == $form_id) {
         global $user;
+        $form['account']['pass']['#access'] = false;
         if (isset($user->roles[5]) && $user->roles[5]) {
             if (isset($_GET['q'])) {
                 if ($_GET['q'] !== 'user/retailer') {
@@ -176,6 +171,7 @@ function awards_form_alter(&$form, &$form_state, $form_id)
             retailerRules($form);
             juriRules($form);
         }
+        $form['account']['pass']['#access']         = false;
     } else if ('views_form_send_news_page' == $form_id) {
         $fields = array('from', 'additional', 'views_send_direct', 'views_send_carbon_copy', 'views_send_remember', 'to');
         setFieldAccess($form, $fields);
@@ -193,14 +189,13 @@ function awards_form_alter(&$form, &$form_state, $form_id)
     }
 }
 
-
+/**
+ * @param $edit
+ * @param $account
+ * @param $category
+ */
 function awards_user_presave(&$edit, $account, $category) {
-//    var_dump($edit);
-    dsm($edit);
-    dsm($account);
-    // Make sure that our form value 'mymodule_foo' is stored as
-    // 'mymodule_bar' in the 'data' (serialized) column.
-    if (isset($account->pass)) {
+    if ($account->is_new) {
         $edit['field_clean_pass']['und'][0]['value'] = $account->pass;
     }
 }
