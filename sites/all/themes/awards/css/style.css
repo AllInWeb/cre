@@ -812,3 +812,27 @@ a.fieldset-title {
 .vertical-tabs.clearfix {
     display: none;
 }
+
+.view-second-vote td {
+    padding: 0;
+}
+
+.view-second-vote h2 {
+    margin: 0;
+    border-bottom: 1px solid;
+    padding: 4px;
+    text-align: center;
+}
+
+.view-second-vote h2 a {
+    text-decoration: none;
+    color: #858b93;
+}
+
+.view-second-vote .form-submit {
+    /*display: none;*/
+}
+
+.view-second-vote form {
+    padding: 10px 10px;
+}
