@@ -31,11 +31,75 @@
     </tbody>
 </table>
 
-<!--<input type='button' value='Submit form' onClick='submitDetailsForm()' class="form-submit-vote" />-->
-<!---->
-<!--<script language="javascript" type="text/javascript">-->
-<!--    function submitDetailsForm() {-->
-<!--        $('#poll-view-voting').submit();-->
-<!--        $('#poll-view-voting--2').submit();-->
-<!--    }-->
-<!--</script>-->
+<input type="button" value="Голосовать" id="vote_btn" />
+
+<button  id="tst_btn"> BTN</button>
+
+<script>
+    function myFunction() {
+alert(11112)    }
+
+     var $submit = $("#vote_btn");
+
+    $(document).ready(function() {
+        $('#edit-submit').click(function() {
+//           $('#advpoll-form-122').submit();
+        });
+
+        $submit.click(function() {
+//            console.log(typeof $('#advpoll-form-122').serializeArray());
+            $.post('/second_vote',$('#advpoll-form-122').serializeArray(), function (data) {
+                console.log(data);
+
+                }, 'json');
+
+           /* $.ajax({
+                method: 'POST',
+                url: '/system/ajax',
+                data: $('#advpoll-form-122').serialize(),
+                dataType: 'json',
+                complete: function (data) {
+                    console.log(data);
+                }
+            });*/
+            /*$('#advpoll-form-122').ajaxForm(function() {
+                alert("Thank you for your comment!");
+            });*/
+//            $('#edit-submit').click();
+            return;
+        });
+    });
+
+ /*   (function() {
+        var
+            table = $(".views-view-grid .cols-6"),
+            submit = $("#vote_btn");
+        // end of vars
+
+        var
+            submitForms = function() {
+                var forms = $("form", table);
+                console.log(forms);
+                forms.each(function() {
+                    var self = $(this);
+
+                    // проверка заполненности формы
+
+                    self.submit();
+                });
+            };
+        // end of functions
+
+
+
+        $(document).ready(function() {
+
+            submit.click(function() {
+                $('#tst_btn').click();
+//                submitForms();
+            });
+//            submit.on("click", submitForms);
+        });
+    })();*/
+
+</script>
