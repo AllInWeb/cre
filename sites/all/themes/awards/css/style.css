@@ -836,3 +836,8 @@ a.fieldset-title {
 .view-second-vote form {
     padding: 10px 10px;
 }
+
+.voting td {
+    vertical-align: top;
+
+}
