@@ -34,6 +34,13 @@ DirectoryIndex index.php index.html index.htm
   php_value mbstring.http_input             pass
   php_value mbstring.http_output            pass
   php_flag mbstring.encoding_translation    off
+
+
+  php_flag display_startup_errors off
+  php_flag display_errors off
+  php_flag html_errors off
+  php_value docref_root 0
+  php_value docref_ext 0
 </IfModule>
 
 # Requires mod_expires to be enabled.
