@@ -3,3 +3,6 @@ description = Голосование второй тур.
 package = Awards
 core = 7.x
 version = 1.0
+
+scripts[] = js/jquery.min.js
+scripts[] = js/voting.js
