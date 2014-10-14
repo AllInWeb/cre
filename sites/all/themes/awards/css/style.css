@@ -26,7 +26,7 @@ tbody {
 }
 
 body.front .wrapper {
-    background: url("../images/background.png") no-repeat;
+    background: url("../images/background.jpg") no-repeat;
     background-position: 50% 131px;
     min-width: 1200px
 }
@@ -168,19 +168,24 @@ marquee {
     text-align: center;
     color: #fff;
     height: 370px;
-    padding-top: 120px;
+    padding-top: 50px;
+    letter-spacing: 5px;
+}
+
+.big,
+.big.date h3 {
+    font-size: 18px;
 }
 
 .date h3 {
-    font-size: 47.83px;
+    font-size: 24px;
     font-weight: bold;
-    line-height: 35.87px;
 }
 
-.date h1 {
-    font-size: 59.87px;
-    font-weight: normal;
-}
+/*.date h1 {*/
+    /*font-size: 59.87px;*/
+    /*font-weight: normal;*/
+/*}*/
 
 
 .award-main {
@@ -219,10 +224,10 @@ marquee {
 }
 
 .award.table .btn a {
-    background: url("../images/word.png") no-repeat;
+    background: url("../images/ustav.png") no-repeat;
     display: block;
-    width: 150px;
-    height: 174px;
+    width: 63px;
+    height: 89px;
     font-size: 0;
 }
 
@@ -464,16 +469,16 @@ a.cboxElement {
 
 .jcarousel-skin-default .jcarousel-next,
 .jcarousel-skin-default .jcarousel-prev {
-    width: 43px;
-    height: 146px;
+    width: 58px;
+    height: 58px;
 }
 
 .jcarousel-skin-default .jcarousel-next {
-    background: url("../images/arrow-next.png") no-repeat;
+    background: url("../images/next.png") no-repeat;
 }
 
 .jcarousel-skin-default .jcarousel-prev {
-    background: url("../images/arrow-white.png") no-repeat;
+    background: url("../images/prev.png") no-repeat;
 }
 
 .jcarousel-skin-default .jcarousel-prev-horizontal:hover,
@@ -482,13 +487,13 @@ a.cboxElement {
 }
 
 .jcarousel-skin-default .jcarousel-prev-horizontal {
-    top: 120px;
-    left: -60px;
+    top: 180px;
+    left: -45px;
 }
 
 .jcarousel-skin-default .jcarousel-next-horizontal {
-    top: 120px;
-    right: -60px;
+    top: 180px;
+    right: -45px;
 }
 
 fieldset {
@@ -735,7 +740,7 @@ a.fieldset-title {
     overflow: hidden;
     text-align: center;
     font-size: 18px;
-    margin: 15px 0 10px 0;
+    margin: 80px 0 10px 0;
 }
 
 .menu-content a {
@@ -840,4 +845,8 @@ a.fieldset-title {
 .voting td {
     vertical-align: top;
 
+}
+
+.ulist {
+    margin: 15px;
 }

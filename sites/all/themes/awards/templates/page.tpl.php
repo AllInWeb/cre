@@ -152,7 +152,14 @@
                     <div class="content-block" id='third'>
                         <div class="award-main">
                             <div class="orange-line"></div>
-                            <?php print render($page['nominees']); ?>
+                            <h2>Номинации CRE Retail Awards</h2>
+                            <?php
+                                $variables
+                                    = array(
+                                    'path' => 'sites/all/themes/awards/images/nom.png',
+                                );
+                                print $img = theme('image', $variables);
+                            ?>
                         </div>
                     </div>
                 <?php endif; ?>
